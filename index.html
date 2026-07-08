@@ -559,6 +559,30 @@
         background:rgba(245,158,11,.08);
         box-shadow:0 12px 26px rgba(15,23,42,.08);
       }
+      .aov-sticky{
+        position:sticky;
+        top:78px;
+        z-index:45;
+        display:none;
+        margin-top:12px;
+      }
+      .aov-sticky-inner{
+        border-radius:22px;
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.92);
+        box-shadow:var(--shadow2);
+        padding:14px 16px 16px;
+      }
+      .aov-sticky .aov-grid{margin-top:0}
+      .aov-sticky .aov-grid{
+        display:grid;
+        grid-template-columns:repeat(5, minmax(0, 1fr));
+        gap:12px;
+        padding:0;
+        overflow:visible;
+      }
+      .aov-sticky .aovitem{min-width:0;padding:12px 12px}
+      .aov-sticky .aov-name{text-align:center}
       .para{font-size:13px;line-height:1.65;color:var(--text)}
       .list{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:10px}
       .li{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;color:var(--text)}
@@ -1032,27 +1056,13 @@
       <div class="card switcher" data-switcher="am" data-active="0">
         <div class="switch-hd">
           <div class="seg" role="tablist" aria-label="AMAX切换">
-            <div class="segbtn active" data-idx="0" role="tab" tabindex="0" aria-selected="true">关于AMAX</div>
-            <div class="segbtn" data-idx="1" role="tab" tabindex="0" aria-selected="false">AMAX活动</div>
+            <div class="segbtn active" data-idx="0" role="tab" tabindex="0" aria-selected="true">AMAX活动</div>
+            <div class="segbtn" data-idx="1" role="tab" tabindex="0" aria-selected="false">关于AMAX</div>
           </div>
         </div>
         <div class="switch-panels">
           <div class="switch-track">
-            <div class="switch-panel" data-idx="0" id="intro">
-              <div class="para">AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。</div>
-              <ul class="list">
-                <li class="li"><span class="dot"></span><span>技术领先：以去中心化架构打造安全可靠的公链基础设施</span></li>
-                <li class="li"><span class="dot"></span><span>生态完善：深度赋能金融、游戏、资产、社区等多重场景</span></li>
-                <li class="li"><span class="dot"></span><span>多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性</span></li>
-                <li class="li"><span class="dot"></span><span>价值闭环：构建“技术-应用-价值”的良性循环生态</span></li>
-              </ul>
-              <div class="kv">
-                <div class="it"><div class="k">代币名称</div><div class="v">$AMAX</div></div>
-                <div class="it"><div class="k">符号</div><div class="v">AMAX</div></div>
-                <div class="it"><div class="k">总供应量</div><div class="v">1,000,000,000 AMAX（10亿枚）</div></div>
-              </div>
-            </div>
-            <div class="switch-panel" data-idx="1" id="rewards">
+            <div class="switch-panel" data-idx="0" id="rewards">
               <div class="aov-grid">
                 <div class="aovitem aovitem-card active" data-anchor="#a1" data-type="spot" role="button" tabindex="0">
                   <div class="aov-left">
@@ -1106,8 +1116,26 @@
                 </div>
               </div>
             </div>
+            <div class="switch-panel" data-idx="1" id="intro">
+              <div class="para">AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>技术领先：以去中心化架构打造安全可靠的公链基础设施</span></li>
+                <li class="li"><span class="dot"></span><span>生态完善：深度赋能金融、游戏、资产、社区等多重场景</span></li>
+                <li class="li"><span class="dot"></span><span>多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性</span></li>
+                <li class="li"><span class="dot"></span><span>价值闭环：构建“技术-应用-价值”的良性循环生态</span></li>
+              </ul>
+              <div class="kv">
+                <div class="it"><div class="k">代币名称</div><div class="v">$AMAX</div></div>
+                <div class="it"><div class="k">符号</div><div class="v">AMAX</div></div>
+                <div class="it"><div class="k">总供应量</div><div class="v">1,000,000,000 AMAX（10亿枚）</div></div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      <div class="aov-sticky" id="aovSticky">
+        <div class="aov-sticky-inner"></div>
       </div>
 
       <div class="main">
@@ -2080,7 +2108,11 @@
         function smoothTo(sel){
           var el = qs(sel);
           if (!el) return;
-          var y = el.getBoundingClientRect().top + window.pageYOffset - 78;
+          var topbar = qs(".topbar");
+          var topbarH = topbar ? topbar.getBoundingClientRect().height : 60;
+          var sticky = qs("#aovSticky");
+          var stickyH = (sticky && sticky.style.display !== "none") ? sticky.getBoundingClientRect().height : 0;
+          var y = el.getBoundingClientRect().top + window.pageYOffset - topbarH - stickyH - 14;
           window.scrollTo({ top: y, behavior: "smooth" });
         }
 
@@ -2095,9 +2127,27 @@
           var root = qs('.switcher[data-switcher="am"]');
           if (!root) return;
           var tabs = qsa(".segbtn", root);
-          var cardItems = qsa('.switch-panel[data-idx="1"] [data-anchor]', root);
+          var cardItems = qsa('.switch-panel[data-idx="0"] [data-anchor]', root);
+          var panel = qs('.switch-panel[data-idx="0"]', root);
+          var aovGrid = panel ? qs(".aov-grid", panel) : null;
+          var sticky = qs("#aovSticky");
+          var stickyInner = sticky ? qs(".aov-sticky-inner", sticky) : null;
           var cur = parseInt(root.getAttribute("data-active") || "0", 10);
           if (isNaN(cur)) cur = 0;
+
+          function syncSticky(active){
+            if (!sticky || !panel || !aovGrid) return;
+            var topbar = qs(".topbar");
+            var topbarH = topbar ? topbar.getBoundingClientRect().height : 60;
+            sticky.style.top = (topbarH + 8) + "px";
+            if (active) {
+              sticky.style.display = "block";
+              if (stickyInner && aovGrid.parentElement !== stickyInner) stickyInner.appendChild(aovGrid);
+            } else {
+              sticky.style.display = "none";
+              if (aovGrid.parentElement !== panel) panel.appendChild(aovGrid);
+            }
+          }
 
           function setIdx(i){
             cur = i;
@@ -2107,10 +2157,11 @@
               if (on) t.classList.add("active"); else t.classList.remove("active");
               t.setAttribute("aria-selected", on ? "true" : "false");
             });
-            if (i === 1 && cardItems.length) {
+            if (i === 0 && cardItems.length) {
               cardItems.forEach(function(item){ item.classList.remove("active"); });
               cardItems[0].classList.add("active");
             }
+            syncSticky(i === 0);
           }
 
           tabs.forEach(function(t){
