@@ -236,7 +236,7 @@
         padding:14px 14px 12px;
         box-shadow:none;
         align-self:end;
-        max-width:320px;
+        max-width:380px;
         justify-self:end;
       }
       .timer-title{
@@ -248,7 +248,7 @@
       }
       .timer-title .t{font-weight:1000;color:rgba(248,250,252,.94);font-size:14px}
       .timer-title .s{font-size:12px;color:rgba(248,250,252,.60)}
-      .trow{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+      .trow{margin-top:14px;display:flex;gap:10px;flex-wrap:nowrap;align-items:center}
       .tbox{display:flex;align-items:center;gap:8px}
       .num{
         min-width:54px;
@@ -1017,6 +1017,7 @@
               <div class="tbox"><div class="num" id="d">--</div><div class="unit">天</div></div>
               <div class="tbox"><div class="num" id="h">--</div><div class="unit">时</div></div>
               <div class="tbox"><div class="num" id="m">--</div><div class="unit">分</div></div>
+              <div class="tbox"><div class="num" id="s">--</div><div class="unit">秒</div></div>
             </div>
             <div class="open" aria-label="开放时间">
               <div class="oline"><div class="k">AMAX充值开放</div><div class="v">（待补充）</div></div>
@@ -1445,20 +1446,22 @@
         function qsa(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); }
 
         var end = Date.now() + 9 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000 + 17 * 60 * 1000;
-        var d = qs("#d"), h = qs("#h"), m = qs("#m");
+        var d = qs("#d"), h = qs("#h"), m = qs("#m"), s = qs("#s");
         function pad2(n){ return String(n).padStart(2, "0"); }
         function tick(){
           var diff = Math.max(0, end - Date.now());
-          var totalMin = Math.floor(diff / 60000);
-          var days = Math.floor(totalMin / (60 * 24));
-          var hours = Math.floor((totalMin - days * 60 * 24) / 60);
-          var mins = totalMin - days * 60 * 24 - hours * 60;
+          var totalSec = Math.floor(diff / 1000);
+          var days = Math.floor(totalSec / (60 * 60 * 24));
+          var hours = Math.floor((totalSec - days * 60 * 60 * 24) / (60 * 60));
+          var mins = Math.floor((totalSec - days * 60 * 60 * 24 - hours * 60 * 60) / 60);
+          var secs = totalSec - days * 60 * 60 * 24 - hours * 60 * 60 - mins * 60;
           if (d) d.textContent = pad2(days);
           if (h) h.textContent = pad2(hours);
           if (m) m.textContent = pad2(mins);
+          if (s) s.textContent = pad2(secs);
         }
         tick();
-        setInterval(tick, 30000);
+        setInterval(tick, 1000);
 
         function smoothTo(sel){
           var el = qs(sel);
