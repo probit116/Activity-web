@@ -1,0 +1,1543 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AMAX专区 - Web</title>
+    <style>
+      :root{
+        --bg:#f6f7fb;
+        --surface:#ffffff;
+        --surface2:#f2f4f8;
+        --text:#0b1220;
+        --muted:#5b6474;
+        --muted2:#7a8496;
+        --line:rgba(15,23,42,.10);
+        --line2:rgba(15,23,42,.16);
+        --primary:#f59e0b;
+        --primary2:#fbbf24;
+        --blue:#2563eb;
+        --green:#16a34a;
+        --red:#ef4444;
+        --shadow:0 18px 44px rgba(15,23,42,.12);
+        --shadow2:0 10px 24px rgba(15,23,42,.10);
+        --radius:18px;
+      }
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+        color:var(--text);
+        background:
+          radial-gradient(980px 640px at 10% -6%, rgba(245,158,11,.18) 0%, rgba(245,158,11,0) 58%),
+          radial-gradient(920px 620px at 92% 10%, rgba(37,99,235,.10) 0%, rgba(37,99,235,0) 55%),
+          radial-gradient(1280px 820px at 55% 45%, rgba(14,165,233,.06) 0%, rgba(14,165,233,0) 62%),
+          var(--bg);
+      }
+      a{color:inherit;text-decoration:none}
+      .muted{color:var(--muted)}
+      .muted2{color:var(--muted2)}
+      .link{color:#2563eb;text-decoration:underline}
+      .topbar{
+        position:sticky;
+        top:0;
+        z-index:50;
+        background:linear-gradient(180deg, rgba(246,247,251,.92) 0%, rgba(246,247,251,.72) 100%);
+        backdrop-filter: blur(10px);
+        border-bottom:1px solid var(--line);
+      }
+      .topbar-inner{
+        max-width:1200px;
+        margin:0 auto;
+        padding:0 18px;
+        height:64px;
+        display:flex;
+        align-items:center;
+        gap:14px;
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        min-width:240px;
+      }
+      .logo{
+        width:42px;height:42px;
+        border-radius:16px;
+        background:rgba(255,255,255,.92);
+        border:1px solid var(--line);
+        display:grid;place-items:center;
+      }
+      .brandname{
+        display:flex;
+        flex-direction:column;
+        gap:2px;
+      }
+      .brandname .t{font-weight:1000;letter-spacing:.2px}
+      .brandname .s{font-size:12px;color:var(--muted2)}
+      .nav{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:1;
+        overflow:auto;
+        padding:8px 0;
+      }
+      .nav .item{
+        flex:0 0 auto;
+        padding:8px 12px;
+        border-radius:999px;
+        border:1px solid var(--line);
+        background:var(--surface);
+        color:var(--text);
+        font-weight:900;
+        font-size:12px;
+        white-space:nowrap;
+      }
+      .nav .item.active{
+        border-color:rgba(245,158,11,.40);
+        background:rgba(245,158,11,.12);
+        color:#92400e;
+      }
+      .right{
+        display:flex;
+        align-items:center;
+        gap:10px;
+      }
+      .rbtn{
+        height:40px;
+        padding:0 14px;
+        border-radius:14px;
+        border:1px solid var(--line2);
+        background:var(--surface);
+        color:var(--text);
+        font-weight:1000;
+        font-size:13px;
+        display:flex;
+        align-items:center;
+        gap:8px;
+        user-select:none;
+      }
+      .rbtn.primary{
+        border-color:rgba(245,158,11,.40);
+        background:linear-gradient(180deg, rgba(245,158,11,.98), rgba(245,158,11,.74));
+        color:#1c1203;
+      }
+      .wrap{
+        max-width:1200px;
+        margin:0 auto;
+        padding:18px;
+      }
+      .hero{
+        border-radius:24px;
+        overflow:hidden;
+        border:1px solid rgba(255,255,255,.12);
+        box-shadow:var(--shadow);
+        background:
+          radial-gradient(1240px 620px at 0% 0%, rgba(245,158,11,.26) 0%, rgba(245,158,11,0) 58%),
+          radial-gradient(1200px 700px at 100% 0%, rgba(37,99,235,.16) 0%, rgba(37,99,235,0) 56%),
+          linear-gradient(180deg, rgba(11,18,32,.98) 0%, rgba(6,10,20,.98) 100%);
+        position:relative;
+        color:#f8fafc;
+        min-height:340px;
+      }
+      .hero::after{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background:linear-gradient(120deg, rgba(245,158,11,.18), rgba(37,99,235,.12), rgba(14,165,233,.10));
+        filter: blur(34px);
+        opacity:.55;
+        z-index:0;
+      }
+      .hero-visual{position:absolute;inset:0;z-index:1;pointer-events:none}
+      .hero-visual svg{position:absolute;right:-120px;bottom:-140px;width:540px;height:540px;opacity:.95}
+      .hero-visual .glow{position:absolute;left:-180px;top:-220px;width:460px;height:460px;border-radius:999px;background:radial-gradient(circle at 30% 30%, rgba(245,158,11,.32), rgba(245,158,11,0) 62%);opacity:.9}
+      .hero-inner{
+        position:relative;
+        z-index:2;
+        padding:34px 34px 28px;
+        display:grid;
+        grid-template-columns:1.4fr .6fr;
+        gap:24px;
+        align-items:start;
+      }
+      .h1{
+        font-size:42px;
+        font-weight:1100;
+        letter-spacing:.1px;
+        line-height:1.08;
+        margin:0;
+        max-width:640px;
+      }
+      .h1 b{color:rgba(251,191,36,.98)}
+      .sub{
+        margin-top:14px;
+        font-size:15px;
+        color:rgba(248,250,252,.72);
+        line-height:1.7;
+        max-width:520px;
+      }
+      .badge{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:7px 12px;
+        border-radius:999px;
+        background:rgba(255,255,255,.10);
+        border:1px solid rgba(255,255,255,.16);
+        font-size:12px;
+        color:#f8fafc;
+        white-space:nowrap;
+      }
+      .badge i{
+        width:6px;height:6px;border-radius:50%;
+        background:var(--green);
+        box-shadow:0 0 0 4px rgba(22,163,74,.14);
+      }
+      .hero-left-top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+      }
+      .hero-cta{
+        margin-top:14px;
+        display:flex;
+        gap:12px;
+        flex-wrap:wrap;
+      }
+      .cta{
+        height:44px;
+        padding:0 16px;
+        border-radius:16px;
+        font-weight:1100;
+        font-size:13px;
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        user-select:none;
+      }
+      .cta.primary{
+        background:linear-gradient(180deg, rgba(245,158,11,.98), rgba(245,158,11,.74));
+        border:1px solid rgba(245,158,11,.40);
+        color:#1c1203;
+      }
+      .cta.secondary{
+        background:rgba(255,255,255,.08);
+        border:1px solid rgba(255,255,255,.16);
+        color:#f8fafc;
+      }
+      .hero-right{
+        border-radius:20px;
+        border:1px solid rgba(255,255,255,.08);
+        background:rgba(255,255,255,.04);
+        padding:14px 14px 12px;
+        box-shadow:none;
+        align-self:end;
+        max-width:320px;
+        justify-self:end;
+      }
+      .timer-title{
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-start;
+        gap:4px;
+      }
+      .timer-title .t{font-weight:1000;color:rgba(248,250,252,.94);font-size:14px}
+      .timer-title .s{font-size:12px;color:rgba(248,250,252,.60)}
+      .trow{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+      .tbox{display:flex;align-items:center;gap:8px}
+      .num{
+        min-width:54px;
+        height:38px;
+        border-radius:16px;
+        display:grid;place-items:center;
+        background:rgba(255,255,255,.12);
+        border:1px solid rgba(255,255,255,.14);
+        font-weight:1100;
+        letter-spacing:.6px;
+      }
+      .unit{font-size:12px;color:rgba(248,250,252,.56)}
+      .open{
+        margin-top:16px;
+        display:grid;
+        gap:8px;
+      }
+      .oline{
+        padding:8px 10px;
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,.06);
+        background:rgba(255,255,255,.025);
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+      }
+      .oline .k{font-size:11px;color:rgba(248,250,252,.42)}
+      .oline .v{font-size:11px;color:rgba(248,250,252,.56);font-weight:700}
+      .summary{
+        margin-top:14px;
+        border-radius:22px;
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.92);
+        box-shadow:var(--shadow2);
+        overflow:hidden;
+      }
+      .summary-hd{
+        padding:14px 16px 12px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        border-bottom:1px solid var(--line);
+      }
+      .summary-hd .t{font-weight:1100}
+      .summary-hd .s{font-size:12px;color:var(--muted2)}
+      .summary-grid{
+        padding:14px 16px 16px;
+        display:grid;
+        grid-template-columns:repeat(4, 1fr);
+        gap:12px;
+      }
+      .sum-it{
+        border-radius:18px;
+        border:1px solid var(--line);
+        background:linear-gradient(180deg, rgba(245,158,11,.08), rgba(245,158,11,0));
+        padding:14px;
+      }
+      .sum-it .k{font-size:12px;color:var(--muted2)}
+      .sum-it .v{margin-top:8px;font-weight:1200;font-size:18px;letter-spacing:.2px}
+      .main{
+        margin-top:18px;
+        display:grid;
+        grid-template-columns: 1fr;
+        gap:16px;
+        align-items:start;
+      }
+      .side{
+        position:sticky;
+        top:86px;
+        border-radius:22px;
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.92);
+        box-shadow:var(--shadow2);
+        overflow:hidden;
+      }
+      .side-hd{
+        padding:14px 14px 12px;
+        border-bottom:1px solid var(--line);
+        background:linear-gradient(180deg, rgba(245,158,11,.10), rgba(245,158,11,0));
+      }
+      .side-hd .t{font-weight:1100}
+      .side-hd .s{margin-top:6px;font-size:12px;color:var(--muted2)}
+      .ov{padding:12px;display:grid;gap:10px}
+      .ovitem{
+        padding:10px 12px;
+        border-radius:18px;
+        border:1px solid var(--line);
+        background:var(--surface2);
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        cursor:pointer;
+      }
+      .ovname{
+        font-size:13px;
+        font-weight:1100;
+        color:var(--text);
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+      .ovmeta{
+        margin-top:4px;
+        font-size:11px;
+        color:var(--muted2);
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-wrap:wrap;
+      }
+      .status{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:2px 8px;
+        border-radius:999px;
+        border:1px solid rgba(22,163,74,.24);
+        background:rgba(22,163,74,.10);
+        color:#065f46;
+        font-weight:1000;
+      }
+      .status i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+      .arrow{
+        width:32px;height:32px;
+        border-radius:12px;
+        border:1px solid var(--line);
+        background:var(--surface);
+        color:var(--text);
+        display:grid;place-items:center;
+        flex:0 0 auto;
+      }
+      .content{
+        display:grid;
+        gap:14px;
+      }
+      .aov-grid{
+        margin-top:12px;
+        display:flex;
+        gap:10px;
+        overflow:auto;
+        padding:2px 2px 4px;
+      }
+      .aovitem{
+        border-radius:16px;
+        border:1px solid var(--line);
+        background:rgba(242,244,248,.92);
+        padding:10px 12px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        cursor:pointer;
+        flex:1 0 0;
+        min-width:170px;
+      }
+      .aov-left{min-width:0}
+      .aov-name{
+        font-weight:1100;
+        color:var(--text);
+        line-height:1.25;
+        font-size:12px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .aov-meta{
+        margin-top:4px;
+        font-size:11px;
+        color:var(--muted2);
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-wrap:wrap;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .aov-action{
+        width:30px;height:30px;
+        border-radius:12px;
+        border:1px solid var(--line);
+        background:var(--surface);
+        display:grid;place-items:center;
+        color:var(--text);
+        flex:0 0 auto;
+      }
+      .aovitem:hover{
+        border-color:rgba(245,158,11,.32);
+        background:rgba(245,158,11,.06);
+      }
+      .card{
+        border-radius:22px;
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.92);
+        box-shadow:var(--shadow2);
+        overflow:hidden;
+      }
+      .card-hd{
+        padding:16px 16px 14px;
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:10px;
+        border-bottom:1px solid var(--line);
+        background:linear-gradient(180deg, rgba(245,158,11,.10), rgba(245,158,11,0));
+      }
+      .card-hd .t{font-weight:1100;font-size:15px}
+      .card-hd .d{margin-top:6px;font-size:13px;color:var(--muted);line-height:1.55}
+      .chip{
+        padding:7px 12px;
+        border-radius:999px;
+        border:1px solid rgba(245,158,11,.26);
+        background:rgba(245,158,11,.10);
+        color:#92400e;
+        font-size:12px;
+        font-weight:1100;
+        white-space:nowrap;
+      }
+      .card-bd{padding:16px}
+      .switcher{
+        margin-top:14px;
+        position:relative;
+        z-index:1;
+      }
+      .switch-hd{
+        padding:14px 16px 12px;
+        border-bottom:1px solid var(--line);
+        background:linear-gradient(180deg, rgba(245,158,11,.10), rgba(245,158,11,0));
+        display:flex;
+        justify-content:center;
+      }
+      .seg{
+        width:min(520px, 100%);
+        display:flex;
+        padding:4px;
+        border-radius:999px;
+        border:1px solid var(--line);
+        background:rgba(242,244,248,.92);
+        gap:4px;
+      }
+      .segbtn{
+        flex:1;
+        height:40px;
+        border-radius:999px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:1100;
+        font-size:13px;
+        color:rgba(82,92,110,.92);
+        user-select:none;
+        cursor:pointer;
+      }
+      .segbtn.active{
+        background:rgba(255,255,255,.92);
+        border:1px solid rgba(15,23,42,.08);
+        box-shadow:0 10px 22px rgba(15,23,42,.10);
+        color:rgba(15,23,42,.94);
+      }
+      .switch-panels{
+        overflow:hidden;
+      }
+      .switch-track{
+        display:block;
+        width:100%;
+        transform:none;
+        transition:none;
+      }
+      .switch-panel{
+        width:100%;
+        padding:16px;
+        display:none;
+      }
+      .switcher[data-active="0"] .switch-panel[data-idx="0"]{display:block}
+      .switcher[data-active="1"] .switch-panel[data-idx="1"]{display:block}
+      .switch-panel .card-bd{padding:0}
+      .switcher .aov-grid{
+        display:grid;
+        grid-template-columns:repeat(5, minmax(0, 1fr));
+        gap:12px;
+        padding:0;
+      }
+      .switcher .aovitem{
+        grid-column:span 1;
+        min-width:0;
+        padding:12px 12px;
+      }
+      .switcher .aov-name{
+        font-size:11px;
+        line-height:1.35;
+        white-space:normal;
+        display:-webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+        text-align:center;
+      }
+      .switcher .aov-action{
+        width:28px;
+        height:28px;
+        border-radius:10px;
+      }
+      .switcher .aovitem.active{
+        border-color:rgba(245,158,11,.34);
+        background:rgba(245,158,11,.08);
+        box-shadow:0 12px 26px rgba(15,23,42,.08);
+      }
+      .para{font-size:13px;line-height:1.65;color:var(--text)}
+      .list{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+      .li{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;color:var(--text)}
+      .dot{
+        width:8px;height:8px;border-radius:50%;
+        background:rgba(245,158,11,.95);
+        box-shadow:0 0 0 4px rgba(245,158,11,.14);
+        margin-top:7px;flex:0 0 auto;
+      }
+      .kv{
+        margin-top:14px;
+        display:grid;
+        grid-template-columns:1fr 1fr 1fr;
+        gap:12px;
+      }
+      .kv .it{
+        padding:14px;
+        border-radius:18px;
+        border:1px solid var(--line);
+        background:var(--surface2);
+      }
+      .kv .k{font-size:12px;color:var(--muted2)}
+      .kv .v{margin-top:7px;font-weight:1100;color:var(--text)}
+      .table{
+        width:100%;
+        border-collapse:separate;
+        border-spacing:0;
+        border:1px solid var(--line);
+        border-radius:18px;
+        overflow:hidden;
+      }
+      .table th,.table td{
+        padding:12px 12px;
+        font-size:12px;
+        border-bottom:1px solid var(--line);
+        text-align:left;
+        color:var(--text);
+        vertical-align:top;
+      }
+      .table th{
+        background:var(--surface2);
+        font-weight:1100;
+        color:var(--text);
+      }
+      .table tr:last-child td{border-bottom:0}
+      .callout{
+        margin-top:12px;
+        padding:14px;
+        border-radius:18px;
+        border:1px dashed rgba(37,99,235,.35);
+        background:rgba(37,99,235,.06);
+        color:var(--text);
+        font-size:13px;
+        line-height:1.6;
+      }
+      .btnrow{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+      .btn{
+        height:44px;
+        padding:0 16px;
+        border-radius:16px;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        font-weight:1100;
+        font-size:13px;
+        user-select:none;
+        cursor:pointer;
+      }
+      .btn.primary{
+        background:linear-gradient(180deg, rgba(245,158,11,.98), rgba(245,158,11,.74));
+        border:1px solid rgba(245,158,11,.40);
+        color:#1c1203;
+      }
+      .btn.ghost{
+        border:1px solid var(--line2);
+        background:var(--surface);
+        color:var(--text);
+      }
+      .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+      .benefit{
+        border-radius:18px;
+        border:1px solid var(--line);
+        background:rgba(255,255,255,.92);
+        padding:14px;
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+        box-shadow:0 10px 18px rgba(15,23,42,.06);
+      }
+      .bicon{
+        width:40px;height:40px;
+        border-radius:16px;
+        background:rgba(245,158,11,.14);
+        border:1px solid rgba(245,158,11,.24);
+        display:grid;place-items:center;
+        flex:0 0 auto;
+      }
+      .btitle{font-weight:1100}
+      .bdesc{margin-top:6px;font-size:12px;color:var(--muted2);line-height:1.55}
+      .mini-kline{
+        margin-top:12px;
+        height:110px;
+        border-radius:18px;
+        border:1px solid var(--line);
+        background:
+          radial-gradient(360px 160px at 30% 20%, rgba(245,158,11,.18), rgba(245,158,11,0) 65%),
+          repeating-linear-gradient(90deg, rgba(15,23,42,.06) 0 1px, transparent 1px 18px),
+          repeating-linear-gradient(0deg, rgba(15,23,42,.06) 0 1px, transparent 1px 18px);
+        position:relative;
+        overflow:hidden;
+      }
+      .mini-kline svg{position:absolute;inset:0}
+      .market{
+        margin-top:12px;
+        display:flex;
+        gap:12px;
+        align-items:flex-end;
+      }
+      .price{font-size:22px;font-weight:1200}
+      .chg{
+        font-size:12px;
+        font-weight:1100;
+        padding:5px 12px;
+        border-radius:999px;
+        border:1px solid rgba(22,163,74,.22);
+        background:rgba(22,163,74,.10);
+        color:#065f46;
+      }
+      .foot{
+        margin-top:18px;
+        padding:16px;
+        border-radius:22px;
+        border:1px solid rgba(239,68,68,.18);
+        background:rgba(239,68,68,.08);
+        color:#7f1d1d;
+        line-height:1.7;
+      }
+      .foot .t{font-weight:1100}
+      .foot .p{margin-top:8px;font-size:13px;color:#7f1d1d}
+      .web-bottom-actions{
+        margin-top:18px;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:14px;
+      }
+      .web-bottom-action{
+        border-radius:24px;
+        border:1px solid rgba(15,23,42,.10);
+        background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(247,248,252,.98));
+        box-shadow:0 12px 30px rgba(15,23,42,.08);
+        padding:18px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:18px;
+      }
+      .web-bottom-action .meta{min-width:0}
+      .web-bottom-action .title{
+        font-size:18px;
+        font-weight:1100;
+        color:var(--text);
+      }
+      .web-bottom-action .desc{
+        margin-top:6px;
+        font-size:13px;
+        color:var(--muted);
+      }
+      .web-bottom-action .btn{
+        flex:0 0 auto;
+        min-width:124px;
+        justify-content:center;
+      }
+      @media (max-width: 1060px){
+        .hero-inner{grid-template-columns:1fr}
+        .main{grid-template-columns:1fr}
+        .side{position:relative;top:auto}
+        .summary-grid{grid-template-columns:1fr 1fr}
+        .hero-right{justify-self:start;max-width:420px}
+        .h1{font-size:36px}
+        .global-nav{gap:12px;overflow:auto}
+        .web-bottom-actions{grid-template-columns:1fr}
+      }
+    </style>
+    <style id="uxpro-overrides">
+      :root{
+        --bg:#f7f8fc;
+        --surface:#ffffff;
+        --surface2:#f3f5f9;
+        --text:#0a1020;
+        --muted:#525c6e;
+        --muted2:#6b7588;
+        --line:rgba(15,23,42,.10);
+        --line2:rgba(15,23,42,.16);
+        --primary:#f59e0b;
+        --primary2:#fbbf24;
+        --blue:#2563eb;
+        --green:#16a34a;
+        --red:#ef4444;
+        --shadow:0 18px 50px rgba(15,23,42,.12);
+        --shadow2:0 10px 26px rgba(15,23,42,.10);
+        --radius:20px;
+      }
+      html{font-size:16px;scroll-behavior:smooth}
+      body{line-height:1.55;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      .muted{color:var(--muted)}
+      .muted2{color:var(--muted2)}
+      .topbar{
+        background:rgba(255,255,255,.92);
+        border-bottom:1px solid rgba(15,23,42,.08);
+        box-shadow:0 10px 30px rgba(15,23,42,.05);
+      }
+      .topbar-inner{
+        max-width:none;
+        padding:0 22px;
+        height:60px;
+        gap:22px;
+      }
+      .coinq-brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:0 0 auto;
+      }
+      .coinq-logo{
+        width:84px;
+        height:22px;
+        color:#0f172a;
+      }
+      .global-nav{
+        display:flex;
+        align-items:center;
+        gap:18px;
+        flex:1;
+        min-width:0;
+      }
+      .global-nav .item{
+        font-size:12px;
+        font-weight:900;
+        color:#334155;
+        white-space:nowrap;
+        display:inline-flex;
+        align-items:center;
+        height:60px;
+      }
+      .global-nav .item:hover{color:#0f172a}
+      .global-actions{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        flex:0 0 auto;
+      }
+      .toplink{
+        font-size:12px;
+        font-weight:900;
+        color:#334155;
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:0 2px;
+        height:60px;
+        white-space:nowrap;
+      }
+      .toplink:hover{color:#0f172a}
+      .iconbtn{
+        width:28px;
+        height:28px;
+        display:grid;
+        place-items:center;
+        border-radius:999px;
+        color:#334155;
+      }
+      .iconbtn:hover{background:rgba(15,23,42,.05);color:#0f172a}
+      .wrap{padding-bottom:48px}
+      .hero{
+        border-radius:28px;
+        box-shadow:0 16px 44px rgba(15,23,42,.12);
+      }
+      .card{
+        border-radius:24px;
+        border:1px solid rgba(15,23,42,.10);
+        box-shadow:0 10px 26px rgba(15,23,42,.08);
+      }
+      .hero, .card, .section, .card.activity{scroll-margin-top:86px}
+      .card-hd{
+        padding:18px 18px 14px;
+        background:transparent;
+      }
+      .card-bd{padding:18px}
+      .btn{
+        min-height:44px;
+        border-radius:14px;
+        transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
+        touch-action:manipulation;
+      }
+      .btn:active{transform:translateY(1px)}
+      .btn.primary{box-shadow:0 14px 30px rgba(245,158,11,.22)}
+      .btn.primary:hover{filter:saturate(1.06);box-shadow:0 18px 40px rgba(245,158,11,.26)}
+      .btn.ghost:hover{box-shadow:0 12px 26px rgba(15,23,42,.08)}
+      .btn[data-action="rules"]{
+        min-height:40px;
+        padding:0 8px;
+        border:none;
+        background:transparent;
+        box-shadow:none;
+        color:rgba(82,92,110,.82);
+        font-size:13px;
+        font-weight:700;
+        border-radius:10px;
+      }
+      .btn[data-action="rules"]:hover{
+        box-shadow:none;
+        color:rgba(15,23,42,.88);
+        background:rgba(15,23,42,.04);
+      }
+      .aovitem{min-height:56px}
+      .aov-action{width:34px;height:34px;border-radius:14px}
+      .aovitem{
+        transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+      }
+      .aovitem:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(15,23,42,.10)}
+      .aovitem:active{transform:translateY(1px)}
+      .table{
+        border-collapse:separate;
+        border-spacing:0;
+        overflow:hidden;
+        border-radius:16px;
+      }
+      .table th{
+        background:rgba(15,23,42,.04);
+        font-weight:1000;
+        color:var(--muted);
+      }
+      .table td{background:rgba(255,255,255,.92)}
+      .table tbody tr:nth-child(even) td{background:rgba(242,244,248,.75)}
+      .table tbody tr:hover td{background:rgba(245,158,11,.06)}
+      .chip{
+        border-radius:999px;
+        border:1px solid rgba(15,23,42,.10);
+        background:rgba(255,255,255,.70);
+        color:var(--muted);
+        font-weight:900;
+      }
+      a:focus-visible, .nav .item:focus-visible, .rbtn:focus-visible, .btn:focus-visible, [role="button"]:focus-visible{
+        outline:3px solid rgba(37,99,235,.35);
+        outline-offset:2px;
+      }
+      @media (prefers-reduced-motion: reduce){
+        html{scroll-behavior:auto}
+        *{animation:none !important;transition:none !important}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="coinq-brand" aria-label="CoinQ">
+          <svg class="coinq-logo" viewBox="0 0 126 34" fill="none" aria-hidden="true">
+            <rect x="1" y="5" width="18" height="18" rx="3.2" fill="#22c55e"/>
+            <path d="M6 10h8v3H9v2h4v3H9v6H6V10zM15.5 10H19v14h-3.5V10z" fill="#fff"/>
+            <path d="M29 24V10h4.2l3.7 8.7L40.6 10H45v14h-3.2v-8.6L38 24h-2.3l-3.7-8.6V24H29zM48 17c0-4.2 3-7.3 7.2-7.3 4.2 0 7.2 3.1 7.2 7.3S59.4 24.3 55.2 24.3C51 24.3 48 21.2 48 17zm3.5 0c0 2.3 1.5 4.1 3.7 4.1 2.2 0 3.7-1.8 3.7-4.1s-1.5-4.1-3.7-4.1c-2.2 0-3.7 1.8-3.7 4.1zM65 24V10h3.3l6.1 8.1V10h3.5v14h-3.1l-6.3-8.4V24H65zM80.6 17c0-4.2 3.1-7.3 7.4-7.3 2.4 0 4.2.8 5.6 2.3l-2.2 2.3c-.9-.9-2-1.4-3.3-1.4-2.4 0-4 1.7-4 4.1 0 2.4 1.6 4.1 4 4.1 1.2 0 2.3-.4 3.3-1.4l2.2 2.3c-1.4 1.5-3.2 2.3-5.6 2.3-4.3 0-7.4-3.1-7.4-7.3zM101.4 24.3c-4.2 0-7.2-3.1-7.2-7.3s3-7.3 7.2-7.3c4.2 0 7.2 3.1 7.2 7.3 0 1.7-.5 3.2-1.4 4.4l2.2 2.2-2.2 2.1-2.3-2.2c-1 .5-2.2.8-3.5.8zm0-3.2c.4 0 .8 0 1.2-.1l-2.3-2.2 2.2-2.1 2.2 2.1c.3-.6.5-1.2.5-1.9 0-2.3-1.5-4.1-3.7-4.1-2.2 0-3.7 1.8-3.7 4.1s1.5 4.2 3.8 4.2z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="global-nav" aria-label="全局导航">
+          <a class="item" href="javascript:void(0)">行情</a>
+          <a class="item" href="javascript:void(0)">现货</a>
+          <a class="item" href="javascript:void(0)">合约</a>
+          <a class="item" href="javascript:void(0)">邀请返佣</a>
+          <a class="item" href="javascript:void(0)">积分中心</a>
+          <a class="item" href="javascript:void(0)">合伙人管理</a>
+        </div>
+        <div class="global-actions">
+          <a class="toplink" href="javascript:void(0)">账户</a>
+          <a class="toplink" href="javascript:void(0)">订单</a>
+          <a class="iconbtn" href="javascript:void(0)" aria-label="用户">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </a>
+          <a class="iconbtn" href="javascript:void(0)" aria-label="通知">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 1 1 12 0v4l2 3H4l2-3V9zM10 19a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="iconbtn" href="javascript:void(0)" aria-label="下载">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v10M8 10l4 4 4-4M5 20h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="lang-switch-host" aria-label="语言切换"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="hero">
+        <div class="hero-visual" aria-hidden="true">
+          <div class="glow"></div>
+          <svg viewBox="0 0 720 720" fill="none" aria-hidden="true">
+            <defs>
+              <radialGradient id="wg1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(470 350) rotate(90) scale(320)">
+                <stop stop-color="#fbbf24" stop-opacity=".62"/>
+                <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="wg2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 460) rotate(90) scale(300)">
+                <stop stop-color="#2563eb" stop-opacity=".34"/>
+                <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="500" cy="420" r="300" fill="url(#wg1)"/>
+            <circle cx="560" cy="500" r="280" fill="url(#wg2)"/>
+            <path d="M120 450c120-150 280-208 460-176" stroke="rgba(255,255,255,.16)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M150 520c160-134 318-172 492-134" stroke="rgba(255,255,255,.10)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M260 590c120-80 246-98 370-62" stroke="rgba(255,255,255,.08)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="470" cy="400" r="92" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+            <path d="M430 426l40-84h40l40 84" stroke="rgba(251,191,36,.92)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M456 394h56" stroke="rgba(251,191,36,.92)" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="hero-inner">
+          <div>
+            <div class="hero-left-top">
+            </div>
+            <h1 class="h1">CoinQ × AMAX 超级激励季<b>，400万现金奖励大放送</b></h1>
+            <div class="sub">AMAX —— 新一代公链领军者，以去中心化架构打造安全可靠的公链基础设施</div>
+          </div>
+          <div class="hero-right">
+            <div class="timer-title">
+              <div class="t">倒计时</div>
+              <div class="s">距AMAX正式登录CoinQ还剩</div>
+            </div>
+            <div class="trow" aria-label="倒计时">
+              <div class="tbox"><div class="num" id="d">--</div><div class="unit">天</div></div>
+              <div class="tbox"><div class="num" id="h">--</div><div class="unit">时</div></div>
+              <div class="tbox"><div class="num" id="m">--</div><div class="unit">分</div></div>
+            </div>
+            <div class="open" aria-label="开放时间">
+              <div class="oline"><div class="k">AMAX充值开放</div><div class="v">（待补充）</div></div>
+              <div class="oline"><div class="k">AMAX提现开放</div><div class="v">（待补充）</div></div>
+              <div class="oline"><div class="k">AMAX/USDT交易开放</div><div class="v">（待补充）</div></div>
+              <div class="oline"><div class="k">AMAX质押理财开放</div><div class="v">（待补充）</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card switcher" data-switcher="am" data-active="0">
+        <div class="switch-hd">
+          <div class="seg" role="tablist" aria-label="AMAX切换">
+            <div class="segbtn active" data-idx="0" role="tab" tabindex="0" aria-selected="true">关于AMAX</div>
+            <div class="segbtn" data-idx="1" role="tab" tabindex="0" aria-selected="false">AMAX活动</div>
+          </div>
+        </div>
+        <div class="switch-panels">
+          <div class="switch-track">
+            <div class="switch-panel" data-idx="0" id="intro">
+              <div class="para">AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>技术领先：以去中心化架构打造安全可靠的公链基础设施</span></li>
+                <li class="li"><span class="dot"></span><span>生态完善：深度赋能金融、游戏、资产、社区等多重场景</span></li>
+                <li class="li"><span class="dot"></span><span>多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性</span></li>
+                <li class="li"><span class="dot"></span><span>价值闭环：构建“技术-应用-价值”的良性循环生态</span></li>
+              </ul>
+              <div class="kv">
+                <div class="it"><div class="k">代币名称</div><div class="v">$AMAX</div></div>
+                <div class="it"><div class="k">符号</div><div class="v">AMAX</div></div>
+                <div class="it"><div class="k">总供应量</div><div class="v">1,000,000,000 AMAX（10亿枚）</div></div>
+              </div>
+            </div>
+            <div class="switch-panel" data-idx="1" id="rewards">
+              <div class="aov-grid">
+                <div class="aovitem aovitem-card active" data-anchor="#a1" data-type="spot" role="button" tabindex="0">
+                  <div class="aov-left">
+                    <div class="aov-name">每日交易奖池</div>
+                  </div>
+                  <div class="aov-action" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="aovitem aovitem-card" data-anchor="#a2" data-type="protect" role="button" tabindex="0">
+                  <div class="aov-left">
+                    <div class="aov-name">风险保障计划</div>
+                  </div>
+                  <div class="aov-action" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="aovitem aovitem-card" data-anchor="#a3" data-type="invite" role="button" tabindex="0">
+                  <div class="aov-left">
+                    <div class="aov-name">邀请瓜分 70,000 AMAX</div>
+                  </div>
+                  <div class="aov-action" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="aovitem aovitem-card" data-anchor="#a4" data-type="rebate" role="button" tabindex="0">
+                  <div class="aov-left">
+                    <div class="aov-name">团队返佣升级计划</div>
+                  </div>
+                  <div class="aov-action" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="aovitem aovitem-card" data-anchor="#a5" data-type="newbie" role="button" tabindex="0">
+                  <div class="aov-left">
+                    <div class="aov-name">新人专享</div>
+                  </div>
+                  <div class="aov-action" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="content">
+          <div class="card activity" id="a1" data-type="spot">
+            <div class="card-hd">
+              <div>
+                <div class="t">每日交易奖池</div>
+                <div class="d">每日设立 20,000 AMAX 奖励池，按积分贡献占比分配。</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <table class="table" aria-label="VIP规则">
+                <thead><tr><th>VIP</th><th>有效净买入(AMAX)</th><th>最低成交额(USDT)</th><th>权重</th></tr></thead>
+                <tbody>
+                  <tr><td>LV1</td><td>≥100</td><td>≥10,000</td><td>5</td></tr>
+                  <tr><td>LV2</td><td>≥200</td><td>≥20,000</td><td>6</td></tr>
+                  <tr><td>LV3</td><td>≥300</td><td>≥30,000</td><td>7</td></tr>
+                  <tr><td>LV4</td><td>≥600</td><td>≥60,000</td><td>8</td></tr>
+                  <tr><td>LV5</td><td>≥2,000</td><td>≥200,000</td><td>9</td></tr>
+                  <tr><td>LV6</td><td>≥4,000</td><td>≥400,000</td><td>10</td></tr>
+                  <tr><td>LV7</td><td>≥10,000</td><td>≥1,000,000</td><td>12</td></tr>
+                  <tr><td>LV8</td><td>≥20,000</td><td>≥2,000,000</td><td>15</td></tr>
+                </tbody>
+              </table>
+              <div class="callout">
+                <div>每日活动积分 = 当日成交额 * 权重系数</div>
+                <div>用户奖励 = 每日奖励池 * (用户当日活动积分 / 全平台当日总活动积分)</div>
+              </div>
+              <div class="btnrow">
+                <div class="btn ghost" data-action="vip">升级VIP</div>
+                <div class="btn primary" data-action="trade">立即交易</div>
+                <div class="btn ghost" data-action="rules">了解详细活动规则</div>
+              </div>
+              <div style="margin-top:14px;font-weight:1100">活动说明</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>未完成当前VIP等级要求时，将按照已达成的最高等级参与奖励计算</span></li>
+                <li class="li"><span class="dot"></span><span>奖励每日统计并发放</span></li>
+                <li class="li"><span class="dot"></span><span>平台将严格监控异常交易行为，有权取消奖励资格</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card activity" id="a2" data-type="protect">
+            <div class="card-hd">
+              <div>
+                <div class="t">风险保障计划</div>
+                <div class="d">对 AMAX/USDT 已实现亏损，按VIP补贴比例给予 AMAX 补贴。</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <div style="font-weight:1100">今日AMAX交易榜</div>
+              <table class="table" aria-label="榜单占位" style="margin-top:12px">
+                <thead><tr><th style="width:70px">排名</th><th>UID</th><th>注册手机/邮箱</th><th style="text-align:right;width:140px">成交额</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>97*****8</td><td>1865****31</td><td style="text-align:right">2,850,000</td></tr>
+                  <tr><td>2</td><td>97*****4</td><td>1726****88</td><td style="text-align:right">2,100,000</td></tr>
+                  <tr><td>3</td><td>97*****7</td><td><a class="link" href="javascript:void(0)">1**@qq.com</a></td><td style="text-align:right">1,850,000</td></tr>
+                  <tr><td>4</td><td>97*****0</td><td><a class="link" href="javascript:void(0)">3**@gmail.com</a></td><td style="text-align:right">820,000</td></tr>
+                  <tr><td>5</td><td>97*****9</td><td><a class="link" href="javascript:void(0)">t**@gmail.com</a></td><td style="text-align:right">600,000</td></tr>
+                  <tr><td>6</td><td>97*****2</td><td>1397****54</td><td style="text-align:right">520,000</td></tr>
+                  <tr><td>7</td><td>97*****5</td><td><a class="link" href="javascript:void(0)">a**@outlook.com</a></td><td style="text-align:right">468,000</td></tr>
+                  <tr><td>8</td><td>97*****8</td><td>1572****09</td><td style="text-align:right">395,000</td></tr>
+                  <tr><td>9</td><td>97*****6</td><td><a class="link" href="javascript:void(0)">m**@hotmail.com</a></td><td style="text-align:right">318,000</td></tr>
+                  <tr><td>10</td><td>97*****3</td><td>1883****67</td><td style="text-align:right">256,000</td></tr>
+                </tbody>
+              </table>
+              <div class="callout">
+                <div>已实现亏损 = (平均持仓成本 - 卖出均价) * 卖出数量</div>
+                <div>补贴AMAX数量 = 已实现亏损 * VIP补贴比例 / AMAX当日TWAP均价</div>
+              </div>
+              <div class="btnrow">
+                <div class="btn ghost" data-action="vip">升级VIP</div>
+                <div class="btn ghost" data-action="rules">了解详细活动规则</div>
+              </div>
+              <div style="margin-top:14px;font-weight:1100">活动说明</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴</span></li>
+                <li class="li"><span class="dot"></span><span>补贴每日结算并发放至用户质押账户；补贴资产不计入有效净买入统计</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card activity" id="a3" data-type="invite">
+            <div class="card-hd">
+              <div>
+                <div class="t">邀请瓜分 70,000 AMAX</div>
+                <div class="d">邀请有效用户达标即可获得对应等级AMAX空投奖励。</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <table class="table" aria-label="邀请奖励">
+                <thead><tr><th>有效邀请人数</th><th>奖励</th></tr></thead>
+                <tbody>
+                  <tr><td>≥50人</td><td>100个AMAX空投</td></tr>
+                  <tr><td>≥150人</td><td>400个AMAX空投</td></tr>
+                  <tr><td>≥300人</td><td>800个AMAX空投</td></tr>
+                  <tr><td>≥400人</td><td>1500个AMAX空投</td></tr>
+                </tbody>
+              </table>
+              <div class="btnrow">
+                <div class="btn primary" data-action="invite">立即邀请</div>
+                <div class="btn ghost" data-action="rules">了解详细活动规则</div>
+              </div>
+              <div style="margin-top:14px;font-weight:1100">活动说明</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>达成对应邀请人数即可获得对应等级奖励；按最高等级发放，不重复累计</span></li>
+                <li class="li"><span class="dot"></span><span>奖励数量有限，先到先得</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card activity" id="a4" data-type="rebate">
+            <div class="card-hd">
+              <div>
+                <div class="t">团队返佣升级计划</div>
+                <div class="d">团队满足有效用户数量及团队净入金要求，可享受更高等级返佣比例。</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <table class="table" aria-label="返佣规则">
+                <thead><tr><th>有效邀请人数</th><th>团队净入金</th><th>返佣比例</th></tr></thead>
+                <tbody>
+                  <tr><td>≥50人</td><td>≥5,000 USDT</td><td>30%</td></tr>
+                  <tr><td>≥100人</td><td>≥10,000 USDT</td><td>40%</td></tr>
+                  <tr><td>≥250人</td><td>≥30,000 USDT</td><td>50%</td></tr>
+                </tbody>
+              </table>
+              <div class="btnrow">
+                <div class="btn primary" data-action="invite">立即邀请</div>
+                <div class="btn ghost" data-action="rules">了解详细活动规则</div>
+              </div>
+              <div style="margin-top:14px;font-weight:1100">活动说明</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>达成人数及净入金要求后自动升级返佣等级</span></li>
+                <li class="li"><span class="dot"></span><span>返佣升级将在活动结束后7个工作日内完成开通</span></li>
+                <li class="li"><span class="dot"></span><span>返佣对象为邀请人名下所有有效邀请用户产生的交易手续费</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card activity" id="a5" data-type="newbie">
+            <div class="card-hd">
+              <div>
+                <div class="t">新人专享</div>
+                <div class="d">通过邀请链接完成注册的新用户，可参与瓜分总价值 30,000 AMAX 奖池。</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <div style="font-weight:1100">需完成以下基础任务才能参与奖池瓜分：</div>
+              <ul class="list">
+                <li class="li"><span class="dot"></span><span>累计净入金 ≥ 50 USDT</span></li>
+                <li class="li"><span class="dot"></span><span>累计现货或合约交易量 ≥ 200 USDT</span></li>
+              </ul>
+              <div class="btnrow">
+                <div class="btn primary" data-action="register">立即注册</div>
+                <div class="btn ghost" data-action="rules">了解详细活动规则</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="support">
+            <div class="card-hd">
+              <div>
+                <div class="t">配套区</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <div style="font-weight:1100">AMAX/USDT 现货交易对</div>
+              <div class="muted2" style="margin-top:8px">购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定</div>
+              <div class="btnrow">
+                <div class="btn primary" data-action="trade">立即交易</div>
+              </div>
+              <div style="height:14px"></div>
+              <div style="font-weight:1100">AMAX理财产品</div>
+              <div class="muted2" style="margin-top:8px">XX AMAX起投，预期年化收益高达 XX ，坐享安心收益</div>
+              <div class="btnrow">
+                <div class="btn primary" data-action="subscribe">立即申购</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="benefits">
+            <div class="card-hd">
+              <div>
+                <div class="t">持有AMAX，尊享六大专属权益</div>
+              </div>
+              <div></div>
+            </div>
+            <div class="card-bd">
+              <div class="grid2">
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2l3 7h7l-5.6 4.2L18.5 21 12 16.9 5.5 21l2.1-7.8L2 9h7l3-7z" stroke="rgba(240,213,154,.95)" stroke-width="1.5" fill="rgba(214,176,106,.25)"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">VIP等级升级</div>
+                    <div class="bdesc">根据AMAX质押量升级CoinQ VIP等级，享更低手续费</div>
+                  </div>
+                </div>
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M7 7h10v10H7z" stroke="rgba(240,213,154,.95)" stroke-width="1.5"/>
+                      <path d="M9 9h6v6H9z" fill="rgba(214,176,106,.25)" stroke="rgba(240,213,154,.95)" stroke-width="1.2"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">手续费回购销毁</div>
+                    <div class="bdesc">平台手续费回购AMAX进行销毁，通缩升值</div>
+                  </div>
+                </div>
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 12h16" stroke="rgba(240,213,154,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                      <path d="M12 4v16" stroke="rgba(240,213,154,.95)" stroke-width="1.6" stroke-linecap="round"/>
+                      <path d="M8 8h8v8H8z" fill="rgba(214,176,106,.25)" stroke="rgba(240,213,154,.95)" stroke-width="1.2"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">Launchpad优先认购</div>
+                    <div class="bdesc">AMAX持币者享受Launchpad优先认购权</div>
+                  </div>
+                </div>
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2l7 4v12l-7 4-7-4V6l7-4z" stroke="rgba(240,213,154,.95)" stroke-width="1.5"/>
+                      <path d="M9 10h6v4H9z" fill="rgba(214,176,106,.25)" stroke="rgba(240,213,154,.95)" stroke-width="1.2"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">AI策略工具解锁</div>
+                    <div class="bdesc">解锁专属AI策略工具与高级交易能力</div>
+                  </div>
+                </div>
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3v18" stroke="rgba(240,213,154,.95)" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M5 8h14" stroke="rgba(240,213,154,.95)" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M7 16h10" stroke="rgba(240,213,154,.95)" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">生态节点建设</div>
+                    <div class="bdesc">参与AMAX生态节点建设，共享生态发展收益</div>
+                  </div>
+                </div>
+                <div class="benefit">
+                  <div class="bicon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M4 7h16v10H4z" stroke="rgba(240,213,154,.95)" stroke-width="1.5"/>
+                      <path d="M7 12h10" stroke="rgba(240,213,154,.95)" stroke-width="1.5" stroke-linecap="round"/>
+                      <path d="M12 9v6" stroke="rgba(240,213,154,.95)" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="btitle">平台治理投票</div>
+                    <div class="bdesc">未来AMAX持有者可参与平台重大提案投票及生态治理</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="foot" style="margin-top:16px">
+                <div class="t">提示</div>
+                <div class="p">数字资产属于高风险投资产品，价格波动较大。请用户根据自身风险承受能力理性参与交易，并妥善管理投资风险。</div>
+                <div class="p">CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行为进行审核及处理。</div>
+                <div class="p">更多活动详情请持续关注CoinQ官方公告。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="web-bottom-actions">
+          <div class="web-bottom-action">
+            <div class="meta">
+              <div class="title">下载App</div>
+              <div class="desc">随时随地快速开启交易！</div>
+            </div>
+            <div class="btn primary" data-action="download">下载App</div>
+          </div>
+          <div class="web-bottom-action">
+            <div class="meta">
+              <div class="title">分享活动</div>
+              <div class="desc">与好友一起分享奖励！</div>
+            </div>
+            <div class="btn ghost" data-action="share">分享活动</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.AMAX_I18N_PAGE = "web";
+    </script>
+    <script src="./amax-i18n.js"></script>
+    <script>
+      (function(){
+        function qs(s, el){ return (el||document).querySelector(s); }
+        function qsa(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); }
+
+        var end = Date.now() + 9 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000 + 17 * 60 * 1000;
+        var d = qs("#d"), h = qs("#h"), m = qs("#m");
+        function pad2(n){ return String(n).padStart(2, "0"); }
+        function tick(){
+          var diff = Math.max(0, end - Date.now());
+          var totalMin = Math.floor(diff / 60000);
+          var days = Math.floor(totalMin / (60 * 24));
+          var hours = Math.floor((totalMin - days * 60 * 24) / 60);
+          var mins = totalMin - days * 60 * 24 - hours * 60;
+          if (d) d.textContent = pad2(days);
+          if (h) h.textContent = pad2(hours);
+          if (m) m.textContent = pad2(mins);
+        }
+        tick();
+        setInterval(tick, 30000);
+
+        function smoothTo(sel){
+          var el = qs(sel);
+          if (!el) return;
+          var y = el.getBoundingClientRect().top + window.pageYOffset - 78;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+
+        qsa("[data-anchor]").forEach(function(el){
+          el.addEventListener("click", function(){
+            var a = el.getAttribute("data-anchor");
+            if (a) smoothTo(a);
+          });
+        });
+
+        function initSwitch(){
+          var root = qs('.switcher[data-switcher="am"]');
+          if (!root) return;
+          var tabs = qsa(".segbtn", root);
+          var cardItems = qsa('.switch-panel[data-idx="1"] [data-anchor]', root);
+          var cur = parseInt(root.getAttribute("data-active") || "0", 10);
+          if (isNaN(cur)) cur = 0;
+
+          function setIdx(i){
+            cur = i;
+            root.setAttribute("data-active", String(i));
+            tabs.forEach(function(t){
+              var on = t.getAttribute("data-idx") === String(i);
+              if (on) t.classList.add("active"); else t.classList.remove("active");
+              t.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            if (i === 1 && cardItems.length) {
+              cardItems.forEach(function(item){ item.classList.remove("active"); });
+              cardItems[0].classList.add("active");
+            }
+          }
+
+          tabs.forEach(function(t){
+            t.addEventListener("click", function(){
+              var i = parseInt(t.getAttribute("data-idx") || "0", 10);
+              if (isNaN(i)) i = 0;
+              setIdx(i);
+            });
+            t.addEventListener("keydown", function(e){
+              if (e.key !== "Enter" && e.key !== " ") return;
+              if (e.key === " ") e.preventDefault();
+              t.click();
+            });
+          });
+
+          cardItems.forEach(function(item){
+            item.addEventListener("click", function(){
+              cardItems.forEach(function(x){ x.classList.remove("active"); });
+              item.classList.add("active");
+            });
+          });
+
+          var sx = 0, sy = 0;
+          root.addEventListener("touchstart", function(e){
+              var tt = e.touches && e.touches[0];
+              if (!tt) return;
+              sx = tt.clientX;
+              sy = tt.clientY;
+          });
+          root.addEventListener("touchend", function(e){
+              var tt = e.changedTouches && e.changedTouches[0];
+              if (!tt) return;
+              var dx = tt.clientX - sx;
+              var dy = tt.clientY - sy;
+              if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy)) return;
+              if (dx < 0) setIdx(1);
+              else setIdx(0);
+          });
+
+          setIdx(cur);
+        }
+        initSwitch();
+
+        document.addEventListener("keydown", function(e){
+          if (e.key !== "Enter" && e.key !== " ") return;
+          var t = e.target;
+          if (!(t instanceof Element)) return;
+          var btn = t.closest('[role="button"]');
+          if (!btn) return;
+          if (e.key === " ") e.preventDefault();
+          if (btn.hasAttribute("data-anchor") || btn.hasAttribute("data-action")) { btn.click(); return; }
+        });
+
+        var nav = qs("#nav");
+        if (nav) {
+          nav.addEventListener("click", function(e){
+            var t = e.target;
+            if (!(t instanceof Element)) return;
+            var a = t.closest("a.item");
+            if (!a) return;
+            var href = a.getAttribute("href");
+            if (href && href.startsWith("#")) {
+              e.preventDefault();
+              qsa("a.item", nav).forEach(function(x){ x.classList.remove("active"); });
+              a.classList.add("active");
+              smoothTo(href);
+            }
+          });
+        }
+
+        function copyText(text){
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function(){ alert("已复制链接（原型）"); }).catch(function(){ alert("复制失败（原型）"); });
+            return;
+          }
+          var ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); alert("已复制链接（原型）"); } catch(e){ alert("复制失败（原型）"); }
+          document.body.removeChild(ta);
+        }
+
+        document.addEventListener("click", function(e){
+          var t = e.target;
+          if (!(t instanceof Element)) return;
+          var el = t.closest("[data-action]");
+          if (!el) return;
+          var action = el.getAttribute("data-action");
+          if (!action) return;
+          if (action === "share") { copyText(location.href); return; }
+          if (action === "download") { alert("跳转：App下载页（原型）"); return; }
+          if (action === "vip") { alert("跳转：质押页面（原型）"); return; }
+          if (action === "trade") { alert("跳转：AMAX/USDT 现货交易页（原型）"); return; }
+          if (action === "invite") { alert("跳转：邀请链接页面（原型）"); return; }
+          if (action === "register") { alert("跳转：注册页（原型）"); return; }
+          if (action === "rules") { alert("跳转：活动公告页（原型）"); return; }
+          if (action === "subscribe") { alert("跳转：理财申购页（原型）"); return; }
+        });
+      })();
+    </script>
+  </body>
+</html>
