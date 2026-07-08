@@ -1128,6 +1128,7 @@
                 </div>
                 <div class="dual-panels">
                   <div class="dual-panel active" data-idx="0">
+                    <div class="muted2" style="margin:2px 2px 10px">每两小时更新一次</div>
                     <table class="table" aria-label="今日AMAX交易榜">
                       <thead><tr><th style="width:70px">排名</th><th>UID</th><th>注册手机/邮箱</th><th style="text-align:right;width:140px">成交额</th></tr></thead>
                       <tbody>
@@ -1439,7 +1440,620 @@
     <script>
       window.AMAX_I18N_PAGE = "web";
     </script>
-    <script src="./amax-i18n.js"></script>
+    <script>
+(function () {
+  var page = window.AMAX_I18N_PAGE || "web";
+  var STORAGE_KEY = "amax-i18n-lang-" + page;
+  var DEFAULT_LANG = "zh-CN";
+  var LANGS = [
+    { code: "zh-CN", short: "简", label: "简体中文" },
+    { code: "zh-TW", short: "繁", label: "繁體中文" },
+    { code: "en", short: "EN", label: "English" },
+    { code: "ko", short: "한", label: "한국어" }
+  ];
+
+  var TEXT = {
+    "zh-TW": {
+      "AMAX专区 - Web": "AMAX專區 - Web",
+      "AMAX专区 - H5": "AMAX專區 - H5",
+      "AMAX专区": "AMAX專區",
+      "CoinQ × AMAX 超级激励季": "CoinQ × AMAX 超級激勵季",
+      "，400万现金奖励大放送": "，400萬現金獎勵大放送",
+      "400万": "400萬",
+      "现金奖励大放送": "現金獎勵大放送",
+      "AMAX —— 新一代公链领军者，以去中心化架构打造安全可靠的公链基础设施": "AMAX —— 新一代公鏈領軍者，以去中心化架構打造安全可靠的公鏈基礎設施",
+      "下载App": "下載App",
+      "分享活动": "分享活動",
+      "行情": "行情",
+      "现货": "現貨",
+      "合约": "合約",
+      "邀请返佣": "邀請返傭",
+      "积分中心": "積分中心",
+      "合伙人管理": "合夥人管理",
+      "账户": "帳戶",
+      "订单": "訂單",
+      "随时随地快速开启交易！": "隨時隨地快速開啟交易！",
+      "与好友一起分享奖励！": "與好友一起分享獎勵！",
+      "每日奖池": "每日獎池",
+      "风险保障": "風險保障",
+      "邀请空投": "邀請空投",
+      "团队返佣": "團隊返傭",
+      "配套": "配套",
+      "权益": "權益",
+      "倒计时": "倒計時",
+      "距AMAX正式登录CoinQ还剩": "距AMAX正式登錄CoinQ還剩",
+      "天": "天",
+      "时": "時",
+      "分": "分",
+      "秒": "秒",
+      "每两小时更新一次": "每兩小時更新一次",
+      "AMAX充值开放": "AMAX 充值開放",
+      "AMAX提现开放": "AMAX 提現開放",
+      "AMAX/USDT交易开放": "AMAX/USDT 交易開放",
+      "AMAX/USDT 交易": "AMAX/USDT 交易",
+      "AMAX质押理财开放": "AMAX 質押理財開放",
+      "AMAX质押理财": "AMAX 質押理財",
+      "（待补充）": "（待補充）",
+      "关于AMAX": "關於AMAX",
+      "AMAX活动": "AMAX活動",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链 及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX是Armonia公鏈的原生代幣，Armonia是一個母子多鏈區塊鏈平台，Armonia Meta Chain（AMC）是母鏈，連接所有其他主權Armonia子鏈（ACC）。AMAX作為原生代幣，可用於母鏈及子鏈的運營所需資產，甚至可以成為子鏈的原生代幣。",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX是Armonia公鏈的原生代幣，Armonia是一個母子多鏈區塊鏈平台，Armonia Meta Chain（AMC）是母鏈，連接所有其他主權Armonia子鏈（ACC）。AMAX作為原生代幣，可用於母鏈及子鏈的運營所需資產，甚至可以成為子鏈的原生代幣。",
+      "项目亮点": "項目亮點",
+      "技术领先：以去中心化架构打造安全可靠的公链基础设施": "技術領先：以去中心化架構打造安全可靠的公鏈基礎設施",
+      "生态完善：深度赋能金融、游戏、资产、社区等多重场景": "生態完善：深度賦能金融、遊戲、資產、社群等多重場景",
+      "多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性": "多鏈架構：母子多鏈設計，母鏈與子鏈並行互動，實現高度可擴展性",
+      "价值闭环：构建“技术-应用-价值”的良性循环生态": "價值閉環：構建「技術-應用-價值」的良性循環生態",
+      "代币名称": "代幣名稱",
+      "符号": "符號",
+      "总供应量": "總供應量",
+      "1,000,000,000 AMAX（10亿枚）": "1,000,000,000 AMAX（10億枚）",
+      "每日交易奖池": "每日交易獎池",
+      "风险保障计划": "風險保障計劃",
+      "邀请瓜分 70,000 AMAX": "邀請瓜分 70,000 AMAX",
+      "团队返佣升级计划": "團隊返傭升級計劃",
+      "新人专享": "新人專享",
+      "每日设立 20,000 AMAX 奖励池，按积分贡献占比分配。": "每日設立 20,000 AMAX 獎勵池，按積分貢獻占比分配。",
+      "排名": "排名",
+      "注册手机/邮箱": "註冊手機/郵箱",
+      "成交额": "成交額",
+      "有效净买入": "有效淨買入",
+      "最低成交额": "最低成交額",
+      "最低成交额(USDT)": "最低成交額(USDT)",
+      "有效净买入(AMAX)": "有效淨買入(AMAX)",
+      "权重": "權重",
+      "每日活动积分 = 当日成交额 * 权重系数": "每日活動積分 = 當日成交額 * 權重係數",
+      "用户奖励 = 每日奖励池 * (用户当日活动积分 / 全平台当日总活动积分)": "用戶獎勵 = 每日獎勵池 * (用戶當日活動積分 / 全平台當日總活動積分)",
+      "升级VIP": "升級VIP",
+      "立即交易": "立即交易",
+      "了解详细活动规则": "了解詳細活動規則",
+      "活动说明": "活動說明",
+      "未完成当前VIP等级要求时，将按照已达成的最高等级参与奖励计算": "未完成當前VIP等級要求時，將按照已達成的最高等級參與獎勵計算",
+      "奖励每日统计并发放": "獎勵每日統計並發放",
+      "平台将严格监控异常交易行为，有权取消奖励资格": "平台將嚴格監控異常交易行為，有權取消獎勵資格",
+      "对 AMAX/USDT 已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "對 AMAX/USDT 已實現虧損，按VIP補貼比例給予 AMAX 補貼。",
+      "对 AMAX/USDT 交易对的已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "對 AMAX/USDT 交易對的已實現虧損，按VIP補貼比例給予 AMAX 補貼。",
+      "今日AMAX交易榜": "今日AMAX交易榜",
+      "已实现亏损 = (平均持仓成本 - 卖出均价) * 卖出数量": "已實現虧損 = (平均持倉成本 - 賣出均價) * 賣出數量",
+      "补贴AMAX数量 = 已实现亏损 * VIP补贴比例 / AMAX当日TWAP均价": "補貼AMAX數量 = 已實現虧損 * VIP補貼比例 / AMAX當日TWAP均價",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴": "僅統計AMAX/USDT交易對產生的已實現虧損；浮動虧損不參與補貼",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴计算": "僅統計AMAX/USDT交易對產生的已實現虧損；浮動虧損不參與補貼計算",
+      "补贴每日结算并发放至用户质押账户；补贴资产不计入有效净买入统计": "補貼每日結算並發放至用戶質押帳戶；補貼資產不計入有效淨買入統計",
+      "成功邀请有效用户达到对应人数，获得对应等级 AMAX 空投奖励。": "成功邀請有效用戶達到對應人數，獲得對應等級 AMAX 空投獎勵。",
+      "邀请有效用户达标即可获得对应等级AMAX空投奖励。": "邀請有效用戶達標即可獲得對應等級AMAX空投獎勵。",
+      "有效邀请人数": "有效邀請人數",
+      "奖励": "獎勵",
+      "100个AMAX空投": "100個AMAX空投",
+      "400个AMAX空投": "400個AMAX空投",
+      "800个AMAX空投": "800個AMAX空投",
+      "1500个AMAX空投": "1500個AMAX空投",
+      "立即邀请": "立即邀請",
+      "达成对应邀请人数即可获得对应等级奖励；按最高等级发放，不重复累计": "達成對應邀請人數即可獲得對應等級獎勵；按最高等級發放，不重複累計",
+      "达成对应邀请人数即可获得对应等级奖励；奖励按最高等级发放，不重复累计": "達成對應邀請人數即可獲得對應等級獎勵；獎勵按最高等級發放，不重複累計",
+      "奖励数量有限，先到先得": "獎勵數量有限，先到先得",
+      "团队满足有效用户数量及团队净入金要求，可享受更高等级返佣比例。": "團隊滿足有效用戶數量及團隊淨入金要求，可享受更高等級返傭比例。",
+      "团队满足有效用户数量及团队净入金要求，享更高等级交易手续费返佣比例。": "團隊滿足有效用戶數量及團隊淨入金要求，享更高等級交易手續費返傭比例。",
+      "团队净入金": "團隊淨入金",
+      "返佣比例": "返傭比例",
+      "达成人数及净入金要求后自动升级返佣等级": "達成人數及淨入金要求後自動升級返傭等級",
+      "达成对应邀请人数及团队净入金要求后自动升级返佣等级": "達成對應邀請人數及團隊淨入金要求後自動升級返傭等級",
+      "返佣升级将在活动结束后7个工作日内完成开通": "返傭升級將在活動結束後7個工作日內完成開通",
+      "返佣对象为邀请人名下所有有效邀请用户产生的交易手续费": "返傭對象為邀請人名下所有有效邀請用戶產生的交易手續費",
+      "通过邀请链接完成注册的新用户，可参与瓜分总价值 30,000 AMAX 奖池。": "通過邀請連結完成註冊的新用戶，可參與瓜分總價值 30,000 AMAX 獎池。",
+      "需完成以下基础任务才能参与奖池瓜分：": "需完成以下基礎任務才能參與獎池瓜分：",
+      "累计净入金 ≥ 50 USDT": "累計淨入金 ≥ 50 USDT",
+      "累计现货或合约交易量 ≥ 200 USDT": "累計現貨或合約交易量 ≥ 200 USDT",
+      "立即注册": "立即註冊",
+      "配套区": "配套區",
+      "AMAX/USDT 现货交易对": "AMAX/USDT 現貨交易對",
+      "购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定": "購買AMAX，質押提升VIP等級+瓜分每日獎池一站式搞定",
+      "AMAX理财产品": "AMAX 理財產品",
+      "XX AMAX起投，预期年化收益高达 XX ，坐享安心收益": "XX AMAX起投，預期年化收益高達 XX，坐享安心收益",
+      "立即申购": "立即申購",
+      "活动区": "活動區",
+      "持有AMAX，尊享六大专属权益": "持有AMAX，尊享六大專屬權益",
+      "VIP等级升级": "VIP等級升級",
+      "根据AMAX质押量升级CoinQ VIP等级，享更低手续费": "根據AMAX質押量升級CoinQ VIP等級，享更低手續費",
+      "手续费回购销毁": "手續費回購銷毀",
+      "平台手续费回购AMAX进行销毁，通缩升值": "平台手續費回購AMAX進行銷毀，通縮升值",
+      "Launchpad优先认购": "Launchpad優先認購",
+      "AMAX持币者享受Launchpad优先认购权": "AMAX持幣者享受Launchpad優先認購權",
+      "AI策略工具解锁": "AI策略工具解鎖",
+      "解锁专属AI策略工具与高级交易能力": "解鎖專屬AI策略工具與高級交易能力",
+      "生态节点建设": "生態節點建設",
+      "参与AMAX生态节点建设，共享生态发展收益": "參與AMAX生態節點建設，共享生態發展收益",
+      "平台治理投票": "平台治理投票",
+      "未来AMAX持有者可参与平台重大提案投票及生态治理": "未來AMAX持有者可參與平台重大提案投票及生態治理",
+      "提示": "提示",
+      "数字资产属于高风险投资产品，价格波动较大。请用户根据自身风险承受能力理性参与交易，并妥善管理投资风险。": "數位資產屬於高風險投資產品，價格波動較大。請用戶根據自身風險承受能力理性參與交易，並妥善管理投資風險。",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行 为进行审核及处理。": "CoinQ保留對本次活動規則的最終解釋權，並有權對異常交易行為、作弊行為、惡意套利行為進行審核及處理。",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行为进行审核及处理。": "CoinQ保留對本次活動規則的最終解釋權，並有權對異常交易行為、作弊行為、惡意套利行為進行審核及處理。",
+      "更多活动详情请持续关注CoinQ官方公告。": "更多活動詳情請持續關注CoinQ官方公告。"
+    },
+    "en": {
+      "AMAX专区 - Web": "AMAX Zone - Web",
+      "AMAX专区 - H5": "AMAX Zone - H5",
+      "AMAX专区": "AMAX Zone",
+      "CoinQ × AMAX 超级激励季": "CoinQ × AMAX Super Rewards Season",
+      "，400万现金奖励大放送": ", 4 Million in Cash Rewards",
+      "400万": "4 Million",
+      "现金奖励大放送": "Cash Rewards",
+      "AMAX —— 新一代公链领军者，以去中心化架构打造安全可靠的公链基础设施": "AMAX — a next-generation public chain leader building secure and reliable decentralized infrastructure.",
+      "下载App": "Download App",
+      "分享活动": "Share Campaign",
+      "行情": "Markets",
+      "现货": "Spot",
+      "合约": "Futures",
+      "邀请返佣": "Referral Rebate",
+      "积分中心": "Points Center",
+      "合伙人管理": "Partner Management",
+      "账户": "Account",
+      "订单": "Orders",
+      "随时随地快速开启交易！": "Start trading anytime, anywhere.",
+      "与好友一起分享奖励！": "Share rewards with your friends.",
+      "每日奖池": "Daily Pool",
+      "风险保障": "Risk Protection",
+      "邀请空投": "Referral Airdrop",
+      "团队返佣": "Team Rebate",
+      "配套": "Support",
+      "权益": "Benefits",
+      "倒计时": "Countdown",
+      "距AMAX正式登录CoinQ还剩": "Until AMAX lists on CoinQ",
+      "天": "D",
+      "时": "H",
+      "分": "M",
+      "秒": "S",
+      "每两小时更新一次": "Updated every 2 hours",
+      "AMAX充值开放": "AMAX Deposit",
+      "AMAX提现开放": "AMAX Withdrawal",
+      "AMAX/USDT交易开放": "AMAX/USDT Trading",
+      "AMAX/USDT 交易": "AMAX/USDT Trading",
+      "AMAX质押理财开放": "AMAX Earn",
+      "AMAX质押理财": "AMAX Earn",
+      "（待补充）": "(TBD)",
+      "关于AMAX": "About AMAX",
+      "AMAX活动": "AMAX Campaigns",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链 及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX is the native token of the Armonia public chain. Armonia is a parent-child multi-chain blockchain platform where Armonia Meta Chain (AMC) serves as the parent chain connecting sovereign Armonia child chains (ACC). AMAX can be used across the parent and child chains and can also serve as a native token for child chains.",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX is the native token of the Armonia public chain. Armonia is a parent-child multi-chain blockchain platform where Armonia Meta Chain (AMC) serves as the parent chain connecting sovereign Armonia child chains (ACC). AMAX can be used across the parent and child chains and can also serve as a native token for child chains.",
+      "项目亮点": "Highlights",
+      "技术领先：以去中心化架构打造安全可靠的公链基础设施": "Technology-first: secure and reliable public-chain infrastructure built on decentralization.",
+      "生态完善：深度赋能金融、游戏、资产、社区等多重场景": "Robust ecosystem: empowering finance, gaming, assets, communities, and more.",
+      "多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性": "Multi-chain architecture: parent-child chains interact in parallel for strong scalability.",
+      "价值闭环：构建“技术-应用-价值”的良性循环生态": "Value flywheel: a healthy ecosystem connecting technology, applications, and value.",
+      "代币名称": "Token Name",
+      "符号": "Ticker",
+      "总供应量": "Total Supply",
+      "1,000,000,000 AMAX（10亿枚）": "1,000,000,000 AMAX (1 billion)",
+      "每日交易奖池": "Daily Trading Pool",
+      "风险保障计划": "Risk Protection Plan",
+      "邀请瓜分 70,000 AMAX": "Invite & Share 70,000 AMAX",
+      "团队返佣升级计划": "Team Rebate Upgrade",
+      "新人专享": "New User Exclusive",
+      "每日设立 20,000 AMAX 奖励池，按积分贡献占比分配。": "A daily pool of 20,000 AMAX is distributed based on score contribution.",
+      "排名": "Rank",
+      "注册手机/邮箱": "Phone / Email",
+      "成交额": "Volume",
+      "有效净买入": "Valid Net Buy",
+      "最低成交额": "Min Volume",
+      "最低成交额(USDT)": "Min Volume (USDT)",
+      "有效净买入(AMAX)": "Valid Net Buy (AMAX)",
+      "权重": "Weight",
+      "每日活动积分 = 当日成交额 * 权重系数": "Daily score = daily trading volume × weight factor",
+      "用户奖励 = 每日奖励池 * (用户当日活动积分 / 全平台当日总活动积分)": "User reward = daily reward pool × (user score / total platform score)",
+      "升级VIP": "Upgrade VIP",
+      "立即交易": "Trade Now",
+      "了解详细活动规则": "View Full Rules",
+      "活动说明": "Notes",
+      "未完成当前VIP等级要求时，将按照已达成的最高等级参与奖励计算": "If the current VIP threshold is not met, rewards are calculated by the highest level already reached.",
+      "奖励每日统计并发放": "Rewards are counted and distributed daily.",
+      "平台将严格监控异常交易行为，有权取消奖励资格": "The platform strictly monitors abnormal trading and may revoke rewards.",
+      "对 AMAX/USDT 已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "Realized losses on AMAX/USDT are subsidized in AMAX based on the VIP rate.",
+      "对 AMAX/USDT 交易对的已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "Realized losses on the AMAX/USDT pair are subsidized in AMAX based on the VIP rate.",
+      "今日AMAX交易榜": "Today's AMAX Trading Ranking",
+      "已实现亏损 = (平均持仓成本 - 卖出均价) * 卖出数量": "Realized loss = (avg. holding cost - avg. sell price) × sell quantity",
+      "补贴AMAX数量 = 已实现亏损 * VIP补贴比例 / AMAX当日TWAP均价": "AMAX subsidy = realized loss × VIP subsidy rate / AMAX daily TWAP",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴": "Only realized losses from AMAX/USDT are counted; unrealized losses are excluded.",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴计算": "Only realized losses from AMAX/USDT are counted; unrealized losses are excluded.",
+      "补贴每日结算并发放至用户质押账户；补贴资产不计入有效净买入统计": "Subsidies are settled daily and credited to the staking account; subsidized assets are excluded from valid net buy statistics.",
+      "成功邀请有效用户达到对应人数，获得对应等级 AMAX 空投奖励。": "Invite enough valid users to unlock the corresponding AMAX airdrop tier.",
+      "邀请有效用户达标即可获得对应等级AMAX空投奖励。": "Reach the valid referral target to receive the corresponding AMAX airdrop tier.",
+      "有效邀请人数": "Valid Referrals",
+      "奖励": "Reward",
+      "100个AMAX空投": "100 AMAX Airdrop",
+      "400个AMAX空投": "400 AMAX Airdrop",
+      "800个AMAX空投": "800 AMAX Airdrop",
+      "1500个AMAX空投": "1,500 AMAX Airdrop",
+      "立即邀请": "Invite Now",
+      "达成对应邀请人数即可获得对应等级奖励；按最高等级发放，不重复累计": "Reach a target to unlock its reward tier; only the highest tier is granted.",
+      "达成对应邀请人数即可获得对应等级奖励；奖励按最高等级发放，不重复累计": "Reach a target to unlock its reward tier; only the highest tier is granted.",
+      "奖励数量有限，先到先得": "Rewards are limited and available on a first-come, first-served basis.",
+      "团队满足有效用户数量及团队净入金要求，可享受更高等级返佣比例。": "Teams that meet valid user and net deposit thresholds receive a higher rebate rate.",
+      "团队满足有效用户数量及团队净入金要求，享更高等级交易手续费返佣比例。": "Teams that meet valid user and net deposit thresholds receive a higher trading fee rebate rate.",
+      "团队净入金": "Team Net Deposit",
+      "返佣比例": "Rebate Rate",
+      "达成人数及净入金要求后自动升级返佣等级": "Rebate tier upgrades automatically after the user and deposit thresholds are met.",
+      "达成对应邀请人数及团队净入金要求后自动升级返佣等级": "Rebate tier upgrades automatically after the referral and team net deposit thresholds are met.",
+      "返佣升级将在活动结束后7个工作日内完成开通": "Rebate upgrades are enabled within 7 business days after the event ends.",
+      "返佣对象为邀请人名下所有有效邀请用户产生的交易手续费": "Rebates apply to trading fees generated by all valid referred users under the inviter.",
+      "通过邀请链接完成注册的新用户，可参与瓜分总价值 30,000 AMAX 奖池。": "New users who register through an invite link can share a prize pool worth 30,000 AMAX.",
+      "需完成以下基础任务才能参与奖池瓜分：": "Complete the following tasks to qualify for the prize pool:",
+      "累计净入金 ≥ 50 USDT": "Accumulated net deposit ≥ 50 USDT",
+      "累计现货或合约交易量 ≥ 200 USDT": "Accumulated spot or futures volume ≥ 200 USDT",
+      "立即注册": "Register Now",
+      "配套区": "Support Zone",
+      "AMAX/USDT 现货交易对": "AMAX/USDT Spot Pair",
+      "购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定": "Buy AMAX, stake to upgrade VIP, and share the daily pool in one place.",
+      "AMAX理财产品": "AMAX Earn Product",
+      "XX AMAX起投，预期年化收益高达 XX ，坐享安心收益": "Starting from XX AMAX, with target APY up to XX for steady returns.",
+      "立即申购": "Subscribe Now",
+      "活动区": "Campaign Zone",
+      "持有AMAX，尊享六大专属权益": "Hold AMAX to unlock six exclusive benefits",
+      "VIP等级升级": "VIP Tier Upgrade",
+      "根据AMAX质押量升级CoinQ VIP等级，享更低手续费": "Upgrade your CoinQ VIP tier based on AMAX staking volume and enjoy lower fees.",
+      "手续费回购销毁": "Fee Buyback & Burn",
+      "平台手续费回购AMAX进行销毁，通缩升值": "Platform fees are used to buy back and burn AMAX, driving deflationary value.",
+      "Launchpad优先认购": "Launchpad Priority Access",
+      "AMAX持币者享受Launchpad优先认购权": "AMAX holders receive priority access to Launchpad subscriptions.",
+      "AI策略工具解锁": "AI Strategy Tools",
+      "解锁专属AI策略工具与高级交易能力": "Unlock exclusive AI strategy tools and advanced trading capabilities.",
+      "生态节点建设": "Ecosystem Node Program",
+      "参与AMAX生态节点建设，共享生态发展收益": "Join AMAX ecosystem node development and share ecosystem growth benefits.",
+      "平台治理投票": "Platform Governance Voting",
+      "未来AMAX持有者可参与平台重大提案投票及生态治理": "AMAX holders may participate in major proposal voting and ecosystem governance in the future.",
+      "提示": "Notice",
+      "数字资产属于高风险投资产品，价格波动较大。请用户根据自身风险承受能力理性参与交易，并妥善管理投资风险。": "Digital assets are high-risk investment products with significant price volatility. Please trade rationally based on your risk tolerance and manage risks carefully.",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行 为进行审核及处理。": "CoinQ reserves the final right of interpretation for this campaign and may review and handle abnormal trading, cheating, and malicious arbitrage.",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行为进行审核及处理。": "CoinQ reserves the final right of interpretation for this campaign and may review and handle abnormal trading, cheating, and malicious arbitrage.",
+      "更多活动详情请持续关注CoinQ官方公告。": "Please follow CoinQ official announcements for more campaign details."
+    },
+    "ko": {
+      "AMAX专区 - Web": "AMAX 존 - Web",
+      "AMAX专区 - H5": "AMAX 존 - H5",
+      "AMAX专区": "AMAX 존",
+      "CoinQ × AMAX 超级激励季": "CoinQ × AMAX 슈퍼 리워드 시즌",
+      "，400万现金奖励大放送": ", 총 400만 현금 보상",
+      "400万": "400만",
+      "现金奖励大放送": "현금 보상",
+      "AMAX —— 新一代公链领军者，以去中心化架构打造安全可靠的公链基础设施": "AMAX는 탈중앙화 구조를 기반으로 안전하고 신뢰할 수 있는 퍼블릭 체인 인프라를 구축하는 차세대 퍼블릭 체인 프로젝트입니다.",
+      "下载App": "앱 다운로드",
+      "分享活动": "이벤트 공유",
+      "行情": "마켓",
+      "现货": "현물",
+      "合约": "선물",
+      "邀请返佣": "추천 리베이트",
+      "积分中心": "포인트 센터",
+      "合伙人管理": "파트너 관리",
+      "账户": "계정",
+      "订单": "주문",
+      "随时随地快速开启交易！": "언제 어디서나 빠르게 거래를 시작하세요!",
+      "与好友一起分享奖励！": "친구와 함께 보상을 공유하세요!",
+      "每日奖池": "일일 보너스 풀",
+      "风险保障": "리스크 보호",
+      "邀请空投": "초대 에어드랍",
+      "团队返佣": "팀 리베이트",
+      "配套": "지원",
+      "权益": "혜택",
+      "倒计时": "카운트다운",
+      "距AMAX正式登录CoinQ还剩": "AMAX의 CoinQ 정식 상장까지",
+      "天": "일",
+      "时": "시",
+      "分": "분",
+      "秒": "초",
+      "每两小时更新一次": "2시간마다 업데이트",
+      "AMAX充值开放": "AMAX 입금",
+      "AMAX提现开放": "AMAX 출금",
+      "AMAX/USDT交易开放": "AMAX/USDT 거래",
+      "AMAX/USDT 交易": "AMAX/USDT 거래",
+      "AMAX质押理财开放": "AMAX 예치 상품",
+      "AMAX质押理财": "AMAX 예치 상품",
+      "（待补充）": "(추후 안내)",
+      "关于AMAX": "AMAX 소개",
+      "AMAX活动": "AMAX 이벤트",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链 及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX는 Armonia 퍼블릭 체인의 네이티브 토큰입니다. Armonia는 모체-자체 멀티체인 블록체인 플랫폼이며, Armonia Meta Chain(AMC)이 모체 체인으로서 다른 모든 Armonia 자식 체인(ACC)을 연결합니다. AMAX는 모체 및 자식 체인 운영에 필요한 자산으로 사용될 수 있으며 자식 체인의 네이티브 토큰이 될 수도 있습니다.",
+      "AMAX是Armonia公链的原生代币，Armonia是一个母子多链区块链平台，Armonia Meta Chain（AMC）是母链，连接所有其他主权Armonia子链（ACC）。AMAX作为原生代币，可用于母链及子链的运营所需资产，甚至可以成为子链的原生代币。": "AMAX는 Armonia 퍼블릭 체인의 네이티브 토큰입니다. Armonia는 모체-자체 멀티체인 블록체인 플랫폼이며, Armonia Meta Chain(AMC)이 모체 체인으로서 다른 모든 Armonia 자식 체인(ACC)을 연결합니다. AMAX는 모체 및 자식 체인 운영에 필요한 자산으로 사용될 수 있으며 자식 체인의 네이티브 토큰이 될 수도 있습니다.",
+      "项目亮点": "핵심 포인트",
+      "技术领先：以去中心化架构打造安全可靠的公链基础设施": "기술 우위: 탈중앙화 구조 기반의 안전한 퍼블릭 체인 인프라.",
+      "生态完善：深度赋能金融、游戏、资产、社区等多重场景": "풍부한 생태계: 금융, 게임, 자산, 커뮤니티 등 다양한 시나리오 지원.",
+      "多链架构：母子多链设计，母链与子链并行互动，实现高度可扩展性": "멀티체인 구조: 모체-자식 체인이 병렬로 상호작용하며 높은 확장성을 구현.",
+      "价值闭环：构建“技术-应用-价值”的良性循环生态": "가치 선순환: 기술-응용-가치를 연결하는 생태계 구축.",
+      "代币名称": "토큰명",
+      "符号": "심볼",
+      "总供应量": "총 발행량",
+      "1,000,000,000 AMAX（10亿枚）": "1,000,000,000 AMAX (10억 개)",
+      "每日交易奖池": "일일 거래 보너스 풀",
+      "风险保障计划": "리스크 보장 플랜",
+      "邀请瓜分 70,000 AMAX": "초대하고 70,000 AMAX 나누기",
+      "团队返佣升级计划": "팀 리베이트 업그레이드",
+      "新人专享": "신규 유저 전용",
+      "每日设立 20,000 AMAX 奖励池，按积分贡献占比分配。": "매일 20,000 AMAX 보너스 풀이 마련되며 점수 기여 비율에 따라 분배됩니다.",
+      "排名": "순위",
+      "注册手机/邮箱": "휴대폰 / 이메일",
+      "成交额": "거래액",
+      "有效净买入": "유효 순매수",
+      "最低成交额": "최소 거래액",
+      "最低成交额(USDT)": "최소 거래액(USDT)",
+      "有效净买入(AMAX)": "유효 순매수(AMAX)",
+      "权重": "가중치",
+      "每日活动积分 = 当日成交额 * 权重系数": "일일 활동 점수 = 당일 거래액 × 가중치",
+      "用户奖励 = 每日奖励池 * (用户当日活动积分 / 全平台当日总活动积分)": "유저 보상 = 일일 보너스 풀 × (유저 점수 / 플랫폼 총 점수)",
+      "升级VIP": "VIP 업그레이드",
+      "立即交易": "지금 거래",
+      "了解详细活动规则": "상세 규칙 보기",
+      "活动说明": "안내",
+      "未完成当前VIP等级要求时，将按照已达成的最高等级参与奖励计算": "현재 VIP 조건을 모두 충족하지 못해도 이미 달성한 최고 등급 기준으로 보상이 계산됩니다.",
+      "奖励每日统计并发放": "보상은 매일 집계 및 지급됩니다.",
+      "平台将严格监控异常交易行为，有权取消奖励资格": "플랫폼은 이상 거래를 엄격히 모니터링하며 보상 자격을 취소할 수 있습니다.",
+      "对 AMAX/USDT 已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "AMAX/USDT의 실현 손실에 대해 VIP 보조 비율에 따라 AMAX를 지급합니다.",
+      "对 AMAX/USDT 交易对的已实现亏损，按VIP补贴比例给予 AMAX 补贴。": "AMAX/USDT 거래쌍의 실현 손실에 대해 VIP 보조 비율에 따라 AMAX를 지급합니다.",
+      "今日AMAX交易榜": "오늘의 AMAX 거래 랭킹",
+      "已实现亏损 = (平均持仓成本 - 卖出均价) * 卖出数量": "실현 손실 = (평균 보유가 - 평균 매도가) × 매도 수량",
+      "补贴AMAX数量 = 已实现亏损 * VIP补贴比例 / AMAX当日TWAP均价": "AMAX 보조 수량 = 실현 손실 × VIP 보조 비율 / 당일 AMAX TWAP",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴": "AMAX/USDT에서 발생한 실현 손실만 집계하며 미실현 손실은 제외됩니다.",
+      "仅统计AMAX/USDT交易对产生的已实现亏损；浮动亏损不参与补贴计算": "AMAX/USDT에서 발생한 실현 손실만 집계하며 미실현 손실은 보조 계산에서 제외됩니다.",
+      "补贴每日结算并发放至用户质押账户；补贴资产不计入有效净买入统计": "보조금은 매일 정산되어 스테이킹 계정으로 지급되며 유효 순매수 통계에는 포함되지 않습니다.",
+      "成功邀请有效用户达到对应人数，获得对应等级 AMAX 空投奖励。": "유효 유저 초대 수가 목표에 도달하면 해당 등급의 AMAX 에어드랍을 받습니다.",
+      "邀请有效用户达标即可获得对应等级AMAX空投奖励。": "유효 추천 수 목표를 달성하면 해당 등급의 AMAX 에어드랍을 받습니다.",
+      "有效邀请人数": "유효 초대 수",
+      "奖励": "보상",
+      "100个AMAX空投": "100 AMAX 에어드랍",
+      "400个AMAX空投": "400 AMAX 에어드랍",
+      "800个AMAX空投": "800 AMAX 에어드랍",
+      "1500个AMAX空投": "1,500 AMAX 에어드랍",
+      "立即邀请": "지금 초대",
+      "达成对应邀请人数即可获得对应等级奖励；按最高等级发放，不重复累计": "목표 인원 달성 시 해당 등급 보상이 지급되며 최고 등급만 1회 지급됩니다.",
+      "达成对应邀请人数即可获得对应等级奖励；奖励按最高等级发放，不重复累计": "목표 인원 달성 시 해당 등급 보상이 지급되며 최고 등급만 1회 지급됩니다.",
+      "奖励数量有限，先到先得": "보상은 한정 수량이며 선착순입니다.",
+      "团队满足有效用户数量及团队净入金要求，可享受更高等级返佣比例。": "팀이 유효 유저 수와 팀 순입금 기준을 충족하면 더 높은 리베이트 비율을 적용받습니다.",
+      "团队满足有效用户数量及团队净入金要求，享更高等级交易手续费返佣比例。": "팀이 유효 유저 수와 팀 순입금 기준을 충족하면 더 높은 거래 수수료 리베이트 비율을 적용받습니다.",
+      "团队净入金": "팀 순입금",
+      "返佣比例": "리베이트 비율",
+      "达成人数及净入金要求后自动升级返佣等级": "인원 및 순입금 기준 달성 시 리베이트 등급이 자동 업그레이드됩니다.",
+      "达成对应邀请人数及团队净入金要求后自动升级返佣等级": "초대 인원 및 팀 순입금 기준 달성 시 리베이트 등급이 자동 업그레이드됩니다.",
+      "返佣升级将在活动结束后7个工作日内完成开通": "리베이트 업그레이드는 이벤트 종료 후 7영업일 내 적용됩니다.",
+      "返佣对象为邀请人名下所有有效邀请用户产生的交易手续费": "리베이트는 초대한 사람이 보유한 모든 유효 추천 유저의 거래 수수료에 적용됩니다.",
+      "通过邀请链接完成注册的新用户，可参与瓜分总价值 30,000 AMAX 奖池。": "초대 링크로 가입한 신규 유저는 총 30,000 AMAX 상당의 보너스 풀에 참여할 수 있습니다.",
+      "需完成以下基础任务才能参与奖池瓜分：": "보너스 풀에 참여하려면 아래 기본 조건을 완료해야 합니다:",
+      "累计净入金 ≥ 50 USDT": "누적 순입금 ≥ 50 USDT",
+      "累计现货或合约交易量 ≥ 200 USDT": "누적 현물 또는 선물 거래량 ≥ 200 USDT",
+      "立即注册": "지금 가입",
+      "配套区": "지원 구역",
+      "AMAX/USDT 现货交易对": "AMAX/USDT 현물 거래쌍",
+      "购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定": "AMAX 매수, 스테이킹으로 VIP 업그레이드, 일일 보너스 풀 참여를 한 번에 진행하세요.",
+      "AMAX理财产品": "AMAX 예치 상품",
+      "XX AMAX起投，预期年化收益高达 XX ，坐享安心收益": "최소 XX AMAX부터 시작하며 예상 연 수익률은 최대 XX입니다.",
+      "立即申购": "지금 신청",
+      "活动区": "이벤트 구역",
+      "持有AMAX，尊享六大专属权益": "AMAX 보유 시 6가지 전용 혜택 제공",
+      "VIP等级升级": "VIP 등급 업그레이드",
+      "根据AMAX质押量升级CoinQ VIP等级，享更低手续费": "AMAX 스테이킹 수량에 따라 CoinQ VIP 등급이 올라가고 더 낮은 수수료를 누릴 수 있습니다.",
+      "手续费回购销毁": "수수료 바이백 소각",
+      "平台手续费回购AMAX进行销毁，通缩升值": "플랫폼 수수료로 AMAX를 바이백 및 소각하여 디플레이션 가치를 강화합니다.",
+      "Launchpad优先认购": "Launchpad 우선 참여",
+      "AMAX持币者享受Launchpad优先认购权": "AMAX 보유자는 Launchpad 우선 참여 권한을 가집니다.",
+      "AI策略工具解锁": "AI 전략 도구 해제",
+      "解锁专属AI策略工具与高级交易能力": "전용 AI 전략 도구와 고급 거래 기능을 해제합니다.",
+      "生态节点建设": "생태계 노드 구축",
+      "参与AMAX生态节点建设，共享生态发展收益": "AMAX 생태계 노드 구축에 참여하고 성장 수익을 함께 누리세요.",
+      "平台治理投票": "플랫폼 거버넌스 투표",
+      "未来AMAX持有者可参与平台重大提案投票及生态治理": "향후 AMAX 보유자는 주요 제안 투표 및 생태계 거버넌스에 참여할 수 있습니다.",
+      "提示": "안내",
+      "数字资产属于高风险投资产品，价格波动较大。请用户根据自身风险承受能力理性参与交易，并妥善管理投资风险。": "디지털 자산은 가격 변동성이 큰 고위험 투자 상품입니다. 개인의 위험 감수 수준에 맞춰 신중하게 거래해 주세요.",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行 为进行审核及处理。": "CoinQ는 본 이벤트 규칙에 대한 최종 해석권을 보유하며 이상 거래, 부정행위, 악의적 차익거래를 심사 및 처리할 수 있습니다.",
+      "CoinQ保留对本次活动规则的最终解释权，并有权对异常交易行为、作弊行为、恶意套利行为进行审核及处理。": "CoinQ는 본 이벤트 규칙에 대한 최종 해석권을 보유하며 이상 거래, 부정행위, 악의적 차익거래를 심사 및 처리할 수 있습니다.",
+      "更多活动详情请持续关注CoinQ官方公告。": "이벤트 상세 내용은 CoinQ 공식 공지를 계속 확인해 주세요."
+    }
+  };
+
+  var ALERTS = {
+    "已复制链接（原型）": { "zh-TW": "已複製連結（原型）", "en": "Link copied (prototype)", "ko": "링크가 복사되었습니다 (프로토타입)" },
+    "复制失败（原型）": { "zh-TW": "複製失敗（原型）", "en": "Copy failed (prototype)", "ko": "복사 실패 (프로토타입)" },
+    "跳转：App下载页（原型）": { "zh-TW": "跳轉：App下載頁（原型）", "en": "Jump to: App download page (prototype)", "ko": "이동: 앱 다운로드 페이지 (프로토타입)" },
+    "跳转：质押页面（原型）": { "zh-TW": "跳轉：質押頁面（原型）", "en": "Jump to: Staking page (prototype)", "ko": "이동: 스테이킹 페이지 (프로토타입)" },
+    "跳转：AMAX/USDT 现货交易页（原型）": { "zh-TW": "跳轉：AMAX/USDT 現貨交易頁（原型）", "en": "Jump to: AMAX/USDT spot page (prototype)", "ko": "이동: AMAX/USDT 현물 거래 페이지 (프로토타입)" },
+    "跳转：邀请链接页面（原型）": { "zh-TW": "跳轉：邀請連結頁面（原型）", "en": "Jump to: Invite link page (prototype)", "ko": "이동: 초대 링크 페이지 (프로토타입)" },
+    "跳转：注册页（原型）": { "zh-TW": "跳轉：註冊頁（原型）", "en": "Jump to: Registration page (prototype)", "ko": "이동: 가입 페이지 (프로토타입)" },
+    "跳转：活动公告页（原型）": { "zh-TW": "跳轉：活動公告頁（原型）", "en": "Jump to: Campaign announcement page (prototype)", "ko": "이동: 이벤트 공지 페이지 (프로토타입)" },
+    "跳转：理财申购页（原型）": { "zh-TW": "跳轉：理財申購頁（原型）", "en": "Jump to: Earn subscription page (prototype)", "ko": "이동: 예치 상품 신청 페이지 (프로토타입)" },
+    "返回（原型）": { "zh-TW": "返回（原型）", "en": "Back (prototype)", "ko": "뒤로가기 (프로토타입)" }
+  };
+
+  var TITLE_MAP = {
+    web: {
+      "zh-CN": "AMAX专区 - Web",
+      "zh-TW": "AMAX專區 - Web",
+      en: "AMAX Zone - Web",
+      ko: "AMAX 존 - Web"
+    },
+    h5: {
+      "zh-CN": "AMAX专区 - H5",
+      "zh-TW": "AMAX專區 - H5",
+      en: "AMAX Zone - H5",
+      ko: "AMAX 존 - H5"
+    }
+  };
+
+  function normalize(text) {
+    return String(text || "").replace(/\s+/g, " ").trim();
+  }
+
+  function translateText(text, lang) {
+    if (lang === DEFAULT_LANG) return text;
+    var key = normalize(text);
+    var dict = TEXT[lang] || {};
+    return dict[key] || text;
+  }
+
+  function translateAlert(text, lang) {
+    if (lang === DEFAULT_LANG) return text;
+    var item = ALERTS[text];
+    return item && item[lang] ? item[lang] : text;
+  }
+
+  function safeGetItem(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+
+  function safeSetItem(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) {}
+  }
+
+  var originalAlert = window.alert;
+  var currentLang = safeGetItem(STORAGE_KEY) || DEFAULT_LANG;
+  window.alert = function (message) {
+    originalAlert.call(window, translateAlert(String(message), currentLang));
+  };
+
+  var textNodes = [];
+  var originalTexts = new WeakMap();
+
+  function collectTextNodes() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        var parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        var tag = parent.tagName;
+        if (tag === "SCRIPT" || tag === "STYLE" || tag === "SVG" || tag === "PATH") return NodeFilter.FILTER_REJECT;
+        if (!normalize(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while ((node = walker.nextNode())) {
+      textNodes.push(node);
+      originalTexts.set(node, node.nodeValue);
+    }
+  }
+
+  function injectStyles() {
+    var style = document.createElement("style");
+    style.id = "amax-i18n-style";
+    style.textContent = [
+      ".amax-lang-switch{position:relative;display:flex;align-items:center;z-index:120}",
+      ".amax-lang-trigger{height:40px;min-width:52px;padding:0 12px;border-radius:14px;border:1px solid rgba(15,23,42,.14);background:rgba(255,255,255,.94);color:#0b1220;font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;box-shadow:0 10px 22px rgba(15,23,42,.08)}",
+      ".amax-lang-trigger svg{width:12px;height:12px;transition:transform .16s ease}",
+      ".amax-lang-switch.open .amax-lang-trigger svg{transform:rotate(180deg)}",
+      ".amax-lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:132px;padding:6px;border-radius:14px;border:1px solid rgba(15,23,42,.12);background:rgba(255,255,255,.98);box-shadow:0 18px 42px rgba(15,23,42,.14);display:none}",
+      ".amax-lang-switch.open .amax-lang-menu{display:block}",
+      ".amax-lang-option{height:36px;padding:0 10px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;font-weight:800;color:#0b1220;cursor:pointer;white-space:nowrap}",
+      ".amax-lang-option.active{background:rgba(245,158,11,.12);color:#92400e}",
+      ".amax-lang-option:hover{background:rgba(15,23,42,.05)}",
+      "[data-amax-page='web'] .right,[data-amax-page='web'] .global-actions{gap:8px;flex-wrap:nowrap}",
+      "[data-amax-page='web'] .lang-switch-host{display:flex !important;align-items:center}",
+      "[data-amax-page='web'] .amax-lang-switch{flex:0 0 auto}",
+      "[data-amax-page='h5'] .topbar-inner{position:relative}",
+      "[data-amax-page='h5'] .amax-lang-switch{position:absolute;right:14px;top:50%;transform:translateY(-50%)}",
+      "[data-amax-page='h5'] .title{margin-right:0;padding:0 52px 0 8px}",
+      "html[data-lang='en'] .nav .item,html[data-lang='ko'] .nav .item,html[data-lang='zh-TW'] .nav .item{font-size:11px;padding:0 8px}",
+      "html[data-lang='en'][data-amax-page='web'] .global-nav .item,html[data-lang='ko'][data-amax-page='web'] .global-nav .item{font-size:11px}",
+      "html[data-lang='en'][data-amax-page='web'] .toplink,html[data-lang='ko'][data-amax-page='web'] .toplink{font-size:11px}",
+      "html[data-lang='en'][data-amax-page='web'] .web-bottom-action .title,html[data-lang='ko'][data-amax-page='web'] .web-bottom-action .title{font-size:16px}",
+      "html[data-lang='en'][data-amax-page='web'] .web-bottom-action .desc,html[data-lang='ko'][data-amax-page='web'] .web-bottom-action .desc{font-size:12px;line-height:1.5}",
+      "html[data-lang='en'] .aov-name,html[data-lang='ko'] .aov-name,html[data-lang='zh-TW'] .aov-name{font-size:10px;line-height:1.25;-webkit-line-clamp:3;word-break:break-word}",
+      "html[data-lang='en'] .table th,html[data-lang='en'] .table td,html[data-lang='ko'] .table th,html[data-lang='ko'] .table td,html[data-lang='zh-TW'] .table th,html[data-lang='zh-TW'] .table td{word-break:break-word}",
+      "html[data-lang='en'] .rbtn,html[data-lang='ko'] .rbtn,html[data-lang='zh-TW'] .rbtn{padding:0 10px;font-size:12px}",
+      "html[data-lang='en'][data-amax-page='web'] .brandname .t,html[data-lang='ko'][data-amax-page='web'] .brandname .t{font-size:15px}",
+      "html[data-lang='en'][data-amax-page='h5'] .hero-title .t2,html[data-lang='ko'][data-amax-page='h5'] .hero-title .t2{font-size:28px;line-height:1.12}",
+      "html[data-lang='en'] .bdesc,html[data-lang='ko'] .bdesc{font-size:11px;line-height:1.45}",
+      "html[data-lang='en'] .card-hd .d,html[data-lang='ko'] .card-hd .d{font-size:12px;line-height:1.5}",
+      "html[data-lang='en'][data-amax-page='h5'] .head-pill .v,html[data-lang='ko'][data-amax-page='h5'] .head-pill .v{font-size:11px}",
+      "html[data-lang='en'][data-amax-page='web'] .switcher .aov-grid,html[data-lang='ko'][data-amax-page='web'] .switcher .aov-grid{gap:10px}",
+      "html[data-lang='en'][data-amax-page='web'] .switcher .aovitem,html[data-lang='ko'][data-amax-page='web'] .switcher .aovitem{padding:12px 10px}",
+      "html[data-lang='en'][data-amax-page='h5'] .switcher .aov-card,html[data-lang='ko'][data-amax-page='h5'] .switcher .aov-card{min-height:60px}"
+    ].join("");
+    document.head.appendChild(style);
+  }
+
+  function mountLangSwitch() {
+    var host = document.querySelector(".lang-switch-host");
+    if (!host) return;
+    var wrap = document.createElement("div");
+    wrap.className = "amax-lang-switch";
+    wrap.innerHTML = [
+      '<button class="amax-lang-trigger" type="button" aria-label="Language">',
+      '<span class="amax-lang-current"></span>',
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      "</button>",
+      '<div class="amax-lang-menu"></div>'
+    ].join("");
+    host.appendChild(wrap);
+
+    var menu = wrap.querySelector(".amax-lang-menu");
+    LANGS.forEach(function (item) {
+      var option = document.createElement("div");
+      option.className = "amax-lang-option";
+      option.setAttribute("data-lang", item.code);
+      option.innerHTML = '<span>' + item.label + "</span><span>" + item.short + "</span>";
+      option.addEventListener("click", function () {
+        setLang(item.code);
+        wrap.classList.remove("open");
+      });
+      menu.appendChild(option);
+    });
+
+    wrap.querySelector(".amax-lang-trigger").addEventListener("click", function () {
+      wrap.classList.toggle("open");
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!wrap.contains(event.target)) wrap.classList.remove("open");
+    });
+  }
+
+  function updateLangUI(lang) {
+    var current = document.querySelector(".amax-lang-current");
+    if (current) {
+      var item = LANGS.find(function (x) { return x.code === lang; });
+      current.textContent = item ? item.short : "简";
+    }
+    document.querySelectorAll(".amax-lang-option").forEach(function (node) {
+      node.classList.toggle("active", node.getAttribute("data-lang") === lang);
+    });
+  }
+
+  function setLang(lang) {
+    applyLang(lang);
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    safeSetItem(STORAGE_KEY, lang);
+    document.documentElement.lang = lang;
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.setAttribute("data-amax-page", page);
+    document.title = (TITLE_MAP[page] && TITLE_MAP[page][lang]) || document.title;
+    textNodes.forEach(function (node) {
+      var original = originalTexts.get(node);
+      if (!original) return;
+      node.nodeValue = lang === DEFAULT_LANG ? original : translateText(original, lang);
+    });
+    updateLangUI(lang);
+  }
+
+  injectStyles();
+  collectTextNodes();
+  mountLangSwitch();
+  applyLang(currentLang);
+})();
+    </script>
     <script>
       (function(){
         function qs(s, el){ return (el||document).querySelector(s); }
