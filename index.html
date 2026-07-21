@@ -527,6 +527,7 @@
       }
       .switcher[data-active="0"] .switch-panel[data-idx="0"]{display:block}
       .switcher[data-active="1"] .switch-panel[data-idx="1"]{display:block}
+      .switcher[data-active="2"] .switch-panel[data-idx="2"]{display:block}
       .switch-panel .card-bd{padding:0}
       .switcher .aov-grid{
         display:grid;
@@ -1058,6 +1059,7 @@
           <div class="seg" role="tablist" aria-label="AMAX切换">
             <div class="segbtn active" data-idx="0" role="tab" tabindex="0" aria-selected="true">AMAX活动</div>
             <div class="segbtn" data-idx="1" role="tab" tabindex="0" aria-selected="false">关于AMAX</div>
+            <div class="segbtn" data-idx="2" role="tab" tabindex="0" aria-selected="false">配套区</div>
           </div>
         </div>
         <div class="switch-panels">
@@ -1128,6 +1130,29 @@
                 <div class="it"><div class="k">代币名称</div><div class="v">$AMAX</div></div>
                 <div class="it"><div class="k">符号</div><div class="v">AMAX</div></div>
                 <div class="it"><div class="k">总供应量</div><div class="v">1,000,000,000 AMAX（10亿枚）</div></div>
+              </div>
+            </div>
+            <div class="switch-panel" data-idx="2" id="support">
+              <div class="card">
+                <div class="card-hd">
+                  <div>
+                    <div class="t">配套区</div>
+                  </div>
+                  <div></div>
+                </div>
+                <div class="card-bd">
+                  <div style="font-weight:1100">AMAX/USDT 现货交易对</div>
+                  <div class="muted2" style="margin-top:8px">购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定</div>
+                  <div class="btnrow">
+                    <div class="btn primary" data-action="trade">立即交易</div>
+                  </div>
+                  <div style="height:14px"></div>
+                  <div style="font-weight:1100">AMAX理财产品</div>
+                  <div class="muted2" style="margin-top:8px">XX AMAX起投，预期年化收益高达 XX ，坐享安心收益</div>
+                  <div class="btnrow">
+                    <div class="btn primary" data-action="subscribe">立即申购</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1325,28 +1350,6 @@
               <div class="btnrow">
                 <div class="btn primary" data-action="register">立即注册</div>
                 <div class="btn ghost" data-action="rules">了解详细活动规则</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="support">
-            <div class="card-hd">
-              <div>
-                <div class="t">配套区</div>
-              </div>
-              <div></div>
-            </div>
-            <div class="card-bd">
-              <div style="font-weight:1100">AMAX/USDT 现货交易对</div>
-              <div class="muted2" style="margin-top:8px">购买AMAX，质押提升VIP等级+瓜分每日奖池一站式搞定</div>
-              <div class="btnrow">
-                <div class="btn primary" data-action="trade">立即交易</div>
-              </div>
-              <div style="height:14px"></div>
-              <div style="font-weight:1100">AMAX理财产品</div>
-              <div class="muted2" style="margin-top:8px">XX AMAX起投，预期年化收益高达 XX ，坐享安心收益</div>
-              <div class="btnrow">
-                <div class="btn primary" data-action="subscribe">立即申购</div>
               </div>
             </div>
           </div>
@@ -2129,6 +2132,9 @@
           var tabs = qsa(".segbtn", root);
           var cardItems = qsa('.switch-panel[data-idx="0"] [data-anchor]', root);
           var panel = qs('.switch-panel[data-idx="0"]', root);
+          var main = qs(".main");
+          var activities = qsa(".card.activity", main);
+          var benefits = qs("#benefits", main);
           var aovGrid = panel ? qs(".aov-grid", panel) : null;
           var sticky = qs("#aovSticky");
           var stickyInner = sticky ? qs(".aov-sticky-inner", sticky) : null;
@@ -2161,6 +2167,11 @@
               cardItems.forEach(function(item){ item.classList.remove("active"); });
               cardItems[0].classList.add("active");
             }
+            activities.forEach(function(card){
+              card.style.display = (i === 0) ? "" : "none";
+            });
+            if (benefits) benefits.style.display = "";
+            if (main) main.style.display = "";
             syncSticky(i === 0);
           }
 
